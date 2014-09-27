@@ -13,6 +13,7 @@
                  [com.datomic/datomic-free "0.9.4899"]
                  [expectations "2.0.9"]
                  [lein-datomic "0.2.0"]
+                 [oauth-clj "0.1.13"]
                  ;; client-side
                  ;; TODO
                  ]

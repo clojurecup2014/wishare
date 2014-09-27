@@ -4,7 +4,10 @@
             [compojure.handler :as handler]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
-            [prone.middleware :as prone]))
+            [prone.middleware :as prone]
+            [ring.middleware.cookies :refer [wrap-cookies]]
+            [ring.middleware.session :refer [wrap-session]]
+            [wishare.auth :as auth]))
 
 
 (def debug? (config :debug?))
@@ -12,6 +15,9 @@
 
 (defroutes app-routes
   (GET "/" [] (slurp "resources/public/index.html"))
+  (GET "/signin" {cookies :cookies} (auth/twitter-signin cookies))
+  (GET "/signin/auth" {params :params cookies :cookies} (auth/twitter-auth params cookies))
+  (GET "/user" {cookies :cookies} (auth/user cookies))
   (route/resources "/")
   (route/not-found "Not Found"))
 
@@ -32,6 +38,7 @@
    (cond-> app-routes
            debug? prone/wrap-exceptions)
    with-logging
+   wrap-cookies
    handler/site))
 
 
@@ -49,3 +56,4 @@
       (timbre/info (str "Log file: \"" filename "\""))
       (timbre/set-config! [:appenders :spit :enabled?] true)
       (timbre/set-config! [:shared-appender-config :spit-filename] filename))))
+
