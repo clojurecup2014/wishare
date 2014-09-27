@@ -4,7 +4,8 @@
             [compojure.handler :as handler]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
-            [prone.middleware :as prone]))
+            [prone.middleware :as prone]
+            [wishare.auth :as auth]))
 
 
 (def debug? (config :debug?))
@@ -12,6 +13,8 @@
 
 (defroutes app-routes
   (GET "/" [] (slurp "resources/public/index.html"))
+  (GET "/signin" [] auth/twitter-signin)
+  (GET "/signin/auth" [] auth/twitter-auth)
   (route/resources "/")
   (route/not-found "Not Found"))
 
@@ -49,3 +52,4 @@
       (timbre/info (str "Log file: \"" filename "\""))
       (timbre/set-config! [:appenders :spit :enabled?] true)
       (timbre/set-config! [:shared-appender-config :spit-filename] filename))))
+

@@ -7,6 +7,7 @@
                  [prone "0.6.0"]
                  [com.taoensso/timbre "3.3.1"]
                  [sonian/carica "1.1.0" :exclusions [[cheshire]]]
+                 [oauth-clj "0.1.13"]
                  ;; client-side
                  ;; TODO
                  ]
