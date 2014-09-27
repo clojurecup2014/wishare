@@ -39,7 +39,7 @@
    (cond-> app-routes
            debug? prone/wrap-exceptions)
    with-logging
-   ;;(with-auth :exclude #{"/signin" "/"})
+   (with-auth :exclude #{"/signin" "/"})
    wrap-cookies
    (wrap-session
     {:store (redis-store

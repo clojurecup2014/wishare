@@ -15,15 +15,14 @@
 
 (defn with-auth
   "auth middleware"
-  [& {:keys [exclude]
+  [handler & {:keys [exclude]
       :or {exclude #{}}}]
-  (fn [handler]
-    (fn [request]
-      (if (exclude (request :uri))
-        (handler request)
-        (do
-          ;; TODO do some auth
-          (handler request))))))
+  (fn [request]
+    (if (exclude (request :uri))
+      (handler request)
+      (do
+        ;; TODO do some auth
+        (handler request)))))
 
 ;; (defn twitter-signin
 ;;   "/signin - Twitter authorization handler"
