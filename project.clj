@@ -10,16 +10,12 @@
                  [com.taoensso/timbre "3.3.1"]
                  [sonian/carica "1.1.0" :exclusions [[cheshire]]]
                  [com.datomic/datomic-free "0.9.4899"]
-                 [expectations "2.0.9"]
-                 [lein-datomic "0.2.0"]
                  ;; client-side
                  ;; TODO
                  ]
 
   :plugins [[lein-ring "0.8.11"]
-            [lein-cljsbuild "1.0.3"]
-            [lein-autoexpect "0.2.0"]
-            [lein-datomic "0.2.0"]]
+            [lein-cljsbuild "1.0.3"]]
 
   :ring {:handler wishare.handler/app
          :init wishare.handler/init}
@@ -34,8 +30,10 @@
                                  :optimization :advance
                                  :pertty-print false}}}
               }
-  :datomic {:schemas ["resources/datomic" ["schema.edn"]]
-            :install-location "/home/rinat/datomic-free-0.9.4899"}
+  :datomic {:schemas ["resources/datomic" ["schema.edn"]]}
   :profiles {:dev
-             {:datomic {:config "resources/datomic/free-transactor-template.properties"
+             {:dependencies [[expectations "2.0.9"]
+                             [lein-datomic "0.2.0"]
+                             [lein-autoexpect "1.2.2"]]
+              :datomic {:config "resources/datomic/free-transactor-template.properties"
                         :db-uri "datomic:free://localhost:4334/wishare-db"}}})

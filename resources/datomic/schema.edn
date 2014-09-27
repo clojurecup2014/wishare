@@ -85,6 +85,20 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "A wish description"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wish/comments
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "All comments for one wish"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wish/urls
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "All urls for one wish"
   :db.install/_attribute :db.part/db}]
 
 ;; Friendships request
@@ -95,9 +109,53 @@
   :db/cardinality :db.cardinality/one
   :db/doc "Frendship request sender"
   :db.install/_attribute :db.part/db}
+
  {:db/id #db/id[:db.part/db]
   :db/ident :friendshipRequest/receiver
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "Friendship request receiver"
+  :db.install/_attribute :db.part/db}]
+
+;; Wish comment
+[{:db/id #db/id[:db.part/db]
+  :db/ident :wishComment/body
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "A wish comment body"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wishComment/timestamp
+  :db/valueType :db.type/instant
+  :db/cardinality :db.cardinality/one
+  :db/doc "A wish comment timestamp"
+  :db.install/_attribute :db.part/db}]
+
+;; Wish link
+[{:db/id #db/id[:db.part/db]
+  :db/ident :wishLink/url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "A wish link url"
+  :db.install/_attribute :db.part/db}]
+
+;; Wish status
+
+[{:db/id #db/id[:db.part/db]
+  :db/ident :wishUserStatus/user
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wishUserStatus/wish
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wishLink/status
+  :db/valueType :db.type/bigint
+  :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}]
