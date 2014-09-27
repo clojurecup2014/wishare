@@ -1,0 +1,4 @@
+{:debug? true
+ :log-to-file? false
+ :log-file-name "/var/log/wishare.log"}
+
