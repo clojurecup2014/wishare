@@ -1,0 +1,37 @@
+.image120x120 {
+  height: 120px;
+  width: 120px;
+  margin-right: 10px;
+}
+
+.image100x100 {
+  height: 100px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.image64x64 {
+  height: 64px;
+  width: 64px;
+  margin-right: 10px;
+}
+
+.content {
+  padding-top: 20px;
+}
+
+li.friend {
+  min-height: 80px;
+}
+
+.item .well {
+  min-height: 140px;
+}
+
+.item .title {
+  display: inline;
+}
+
+li.comment div.panel {
+  margin-left: 80px
+}
