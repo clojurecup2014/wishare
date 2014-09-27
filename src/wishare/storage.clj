@@ -24,8 +24,8 @@
                       :wish/description description
                       :wish/url url
                       :wish/title title
-                      ;;:wish/user (find-wish-user-id user-login)
-                      ;;:wish/user-created (find-wish-user-id user-created-email)
+                      :wish/user (find-wish-user-id user-login)
+                      :wish/user-created (find-wish-user-id user-created-email)
                       }]))
 
 
@@ -60,8 +60,8 @@
 
 
 (defn find-all-users []
-  (d/q '[:find ?email ?real-name :where [_ :user/login ?email]
-                                        [_ :user/real-name ?real-name]]
+  (d/q '[:find ?email ?real-name :where     [_ :user/login ?email]
+                                            [_ :user/real-name ?real-name]]
        (d/db conn)))
 
 (defn find-all-user-self-wishes

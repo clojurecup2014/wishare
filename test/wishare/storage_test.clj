@@ -23,11 +23,17 @@
 (expect #{["Bike"]}
         (with-redefs [conn (create-empty-im-memory-db)]
         (do
-          (add-user "jhon@coolmail.com" "Jhon")
+          (add-user "Jhon" "jhon@coolmail.com")
           (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" "http://mysite.com")
           (find-wish-for-user "Jhon")
           )))
 
 
+;;(expect #{["Bike"]}
+;;        (with-redefs [conn (create-empty-im-memory-db)]
+;;        (do
+;;          (add-user  "Jhon" "jhon@coolmail.com")
+;;          (find-wish-user-id "jhon@coolmail.com")
+;;          )))
 
 
