@@ -1,4 +1,5 @@
 {:debug? true
  :log-to-file? false
- :log-file-name "/var/log/wishare.log"}
+ :log-file-name "/var/log/wishare.log"
+ :db {:uri "datomic:free://localhost:4334/wishare-db"}}
 
