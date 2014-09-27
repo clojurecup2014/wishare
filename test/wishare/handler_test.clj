@@ -8,6 +8,6 @@
         (let [response (app (mock/request :get "/"))]
           (:status response)))
 
-(expect 404
-        (let [response (app (mock/request :get "/invalid"))]
+(expect 302
+        (let [response (app (mock/request :get "/signin"))]
           (:status response)))
