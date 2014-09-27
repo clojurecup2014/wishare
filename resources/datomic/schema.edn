@@ -8,7 +8,7 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :user/email
+  :db/ident :user/login
   :db/index true
   :db/unique :db.unique/identity
   :db/valueType :db.type/string
@@ -102,6 +102,13 @@
   :db/doc "Url for one wish"
   :db.install/_attribute :db.part/db}
 
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wish/photo-url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Url for one wish's photo"
+  :db.install/_attribute :db.part/db}
+
 ;; Friendships request
 
  {:db/id #db/id[:db.part/db]
@@ -116,6 +123,13 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "Friendship request receiver"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :friendshipRequest/message
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "A wish link url"
   :db.install/_attribute :db.part/db}
 
 ;; Wish comment
@@ -133,14 +147,6 @@
   :db/doc "A wish comment timestamp"
   :db.install/_attribute :db.part/db}
 
-;; Wish link
- {:db/id #db/id[:db.part/db]
-  :db/ident :wishLink/url
-  :db/valueType :db.type/string
-  :db/cardinality :db.cardinality/one
-  :db/doc "A wish link url"
-  :db.install/_attribute :db.part/db}
-
 ;; Wish status
 
  {:db/id #db/id[:db.part/db]
@@ -156,7 +162,7 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wishLink/status
+  :db/ident :wishUserStatus/status
   :db/valueType :db.type/bigint
   :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}]
