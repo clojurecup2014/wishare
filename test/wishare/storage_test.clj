@@ -19,7 +19,15 @@
           (add-user "Jhon"  "jhon@coolmail.com")
           (find-all-users))))
 
-()
+;;Adding one user with one wish shoould allow us to fild that wish for that user
+(expect #{["Bike"]}
+        (with-redefs [conn (create-empty-im-memory-db)]
+        (do
+          (add-user "jhon@coolmail.com" "Jhon")
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" "http://mysite.com")
+          (find-wish-for-user "Jhon")
+          )))
+
 
 
 

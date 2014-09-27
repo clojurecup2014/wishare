@@ -61,7 +61,7 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wish/user_created
+  :db/ident :wish/user-created
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "Wish creator"
@@ -96,10 +96,10 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wish/urls
-  :db/valueType :db.type/ref
-  :db/cardinality :db.cardinality/many
-  :db/doc "All urls for one wish"
+  :db/ident :wish/url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Url for one wish"
   :db.install/_attribute :db.part/db}
 
 ;; Friendships request
