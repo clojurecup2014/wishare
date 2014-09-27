@@ -15,6 +15,7 @@
                  [clj-redis-session "2.1.0"]
                  [commons-codec "1.4"]
                  [oauth-clj "0.1.13"]
+                 [ring-mock "0.1.5"]
                  ;; client-side
                  ;; TODO
                  ]
