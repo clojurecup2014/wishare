@@ -5,6 +5,8 @@
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [prone.middleware :as prone]
+            [ring.middleware.cookies :refer [wrap-cookies]]
+            [ring.middleware.session :refer [wrap-session]]
             [wishare.auth :as auth]))
 
 
@@ -13,8 +15,9 @@
 
 (defroutes app-routes
   (GET "/" [] (slurp "resources/public/index.html"))
-  (GET "/signin" [] auth/twitter-signin)
-  (GET "/signin/auth" [] auth/twitter-auth)
+  (GET "/signin" {cookies :cookies} (auth/twitter-signin cookies))
+  (GET "/signin/auth" {params :params cookies :cookies} (auth/twitter-auth params cookies))
+  (GET "/user" {cookies :cookies} (auth/user cookies))
   (route/resources "/")
   (route/not-found "Not Found"))
 
@@ -35,6 +38,7 @@
    (cond-> app-routes
            debug? prone/wrap-exceptions)
    with-logging
+   wrap-cookies
    handler/site))
 
 
