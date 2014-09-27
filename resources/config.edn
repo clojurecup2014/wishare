@@ -1,5 +1,7 @@
 {:debug? true
  :log-to-file? false
  :log-file-name "/var/log/wishare.log"
- :db {:uri "datomic:free://localhost:4334/wishare-db"}}
-
+ :db {:uri "datomic:free://localhost:4334/wishare-db"}
+ :redis-conn {:host "127.0.0.1" :port 6379}
+ :auth {:twitter {:key "5xkYaeCYatqGTpCLHOcq26o03"
+                  :secret "sre9DvhrzklrJSkIh9C4xCzTjdmlMrkmfw8sgykl03dlFTxErh"}}}
