@@ -1,12 +1,32 @@
 (ns wishare.handler
   (:require [compojure.core :refer :all]
             [compojure.handler :as handler]
-            [compojure.route :as route]))
+            [compojure.route :as route]
+            [taoensso.timbre :as timbre]
+            [prone.middleware :as prone]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/" [] (slurp "resources/public/index.html"))
   (route/resources "/")
   (route/not-found "Not Found"))
 
+(defn with-logging
+  "Exception logging middleware"
+  [handler]
+  (fn [request]
+    (try
+      (handler request)
+      (catch Exception e
+        (timbre/error e)
+        (throw e)))))
+
 (def app
-  (handler/site app-routes))
+  (-> app-routes
+      with-logging
+      prone/wrap-exceptions
+      handler/site))
+
+(defn init
+  "App initialization"
+  []
+  (println "Started!"))
