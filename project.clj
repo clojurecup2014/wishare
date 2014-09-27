@@ -13,6 +13,7 @@
                  [com.datomic/datomic-free "0.9.4899"]
                  [expectations "2.0.9"]
                  [clj-redis-session "2.1.0"]
+                 [commons-codec "1.4"]
                  [oauth-clj "0.1.13"]
                  ;; client-side
                  ;; TODO
@@ -44,4 +45,3 @@
                         :db-uri "datomic:free://localhost:4334/wishare-db"}
               :dependencies [[javax.servlet/servlet-api "2.5"]]}
              :uberjar {:aot [wishare.main]}})
-
