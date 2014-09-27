@@ -5,6 +5,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2356"]
                  ;; server-side
+                 [ring "1.3.1"]
                  [compojure "1.1.8"]
                  [prone "0.6.0"]
                  [com.taoensso/timbre "3.3.1"]
@@ -24,6 +25,8 @@
   :ring {:handler wishare.handler/app
          :init wishare.handler/init}
 
+  :main wishare.main
+
   :cljsbuild {:builds
               {:dev {:source-paths ["src-cljs"]
                      :compiler {:output-to "resources/public/js/main.js"
@@ -34,8 +37,13 @@
                                  :optimization :advance
                                  :pertty-print false}}}
               }
+
   :datomic {:schemas ["resources/datomic" ["schema.edn"]]
             :install-location "/home/rinat/datomic-free-0.9.4899"}
+
   :profiles {:dev
              {:datomic {:config "resources/datomic/free-transactor-template.properties"
-                        :db-uri "datomic:free://localhost:4334/wishare-db"}}})
+                        :db-uri "datomic:free://localhost:4334/wishare-db"}
+              :dependencies [[javax.servlet/servlet-api "2.5"]]}
+
+             :uberjar {:aot [wishare.main]}})
