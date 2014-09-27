@@ -13,20 +13,20 @@
 
 
 (em/defsnippet wish
-  :compiled "templates/profile.html" ["div.wishlist .wishlist li"]
+  :compiled "templates/template.html" ["div.wishlist .wishlist li"]
   [title]
   ["a.title"] (ef/content title))
 
 
 (em/defsnippet timestamp
-  :compiled "templates/profile.html" [".timeline li"]
+  :compiled "templates/template.html" [".timeline li"]
   [{:keys [description time]}]
   [".description"] (ef/content description)
   [".timestamp"] (ef/content time))
 
 
 (em/defsnippet profile-page
-  :compiled "templates/profile.html" ["body"]
+  :compiled "templates/template.html" ["body"]
   []
   [".page-header h1"] (ef/content "Moe")
   ["div.wishlist"] (ef/remove-attr "style")

@@ -16,6 +16,12 @@
   margin-right: 10px;
 }
 
+.image32x32 {
+  height: 32px;
+  width: 32px;
+  margin-right: 10px;
+}
+
 .content {
   padding-top: 20px;
 }
@@ -34,4 +40,12 @@ li.friend {
 
 li.comment div.panel {
   margin-left: 80px
+}
+
+li.item-status {
+  min-height: 54px
+}
+
+.friend button {
+  margin-top: 23px;
 }

@@ -26,6 +26,8 @@
         <div class="panel-body">
           <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail pull-left avatar image120x120"/>
           <h1 class="user">Joe Page <small>@joe</small></h1>
+          <button class="btn btn-xs btn-success add-friend">Add to friends</button>
+          <button class="btn btn-xs btn-danger remove-friend">Remove from friends</button>
         </div>
       </div>
 
@@ -35,7 +37,7 @@
         <div class="col-md-8 dashboard">
 
           <!-- WHISHLIST -->
-          <div class="panel panel-default wishlist" style="display: none;">
+          <div class="panel panel-default wishlist">
             <div class="panel-heading">
               <ul class="nav nav-pills nav-justified" role="tablist">
                 <li class="active"><a hfer="#">Whishlist</a></li>
@@ -43,8 +45,12 @@
               </ul>
             </div>
             <ul class="wishlist list-group">
+              <li class="list-group-item add-wish">
+                <button type="button" class="btn btn-default btn-block add-wish">Add Wish Item</button>
+              </li>
 
               <li class="list-group-item">
+                <img src="/img/nophoto.png" alt="photo" class="img-thumbnail photo image32x32"/>
                 <a class="title" href="#">Lorem ipsum dolor.</a>
                 <div class="badges pull-right">
                   <span class="badge gifted alert-success" rel="tooltip" data-toggle="tooltip" title="Gifted!!!">
@@ -59,60 +65,8 @@
                   <span class="badge in-thought" rel="tooltip" data-toggle="tooltip" title="in thought">
                     <span class="glyphicon glyphicon-question-sign"></span>
                   </span>
-                </div>
-              </li>
-
-              <li class="list-group-item">
-                <a class="title" href="#">Lorem ipsum dolor.</a>
-                <div class="badges pull-right">
-                  <span class="badge gifted" rel="tooltip" data-toggle="tooltip" title="Gifted!!!">
-                    <span class="glyphicon glyphicon-gift"></span>
-                  </span>
-                  <span class="badge got-it" rel="tooltip" data-toggle="tooltip" title="I've got it!!!">
-                    <span class="glyphicon glyphicon-ok"></span>
-                  </span>
-                  <span class="badge in-progress" rel="tooltip" data-toggle="tooltip" title="In progress">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                  </span>
-                  <span class="badge in-thought alert-success" rel="tooltip" data-toggle="tooltip" title="in thought">
-                    <span class="glyphicon glyphicon-question-sign"></span>
-                  </span>
-                </div>
-              </li>
-
-              <li class="list-group-item">
-                <a class="title" href="#">Lorem ipsum dolor.</a>
-                <div class="badges pull-right">
-                  <span class="badge gifted" rel="tooltip" data-toggle="tooltip" title="Gifted!!!">
-                    <span class="glyphicon glyphicon-gift"></span>
-                  </span>
-                  <span class="badge got-it alert-success" rel="tooltip" data-toggle="tooltip" title="I've got it!!!">
-                    <span class="glyphicon glyphicon-ok"></span>
-                  </span>
-                  <span class="badge in-progress alert-success" rel="tooltip" data-toggle="tooltip" title="In progress">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                  </span>
-                  <span class="badge in-thought" rel="tooltip" data-toggle="tooltip" title="in thought">
-                    <span class="glyphicon glyphicon-question-sign"></span>
-                  </span>
-                </div>
-              </li>
-
-              <li class="list-group-item">
-                <a class="title" href="#">Lorem ipsum dolor.</a>
-                <div class="badges pull-right">
-                  <span class="badge gifted" rel="tooltip" data-toggle="tooltip" title="Gifted!!!">
-                    <span class="glyphicon glyphicon-gift"></span>
-                  </span>
-                  <span class="badge got-it " rel="tooltip" data-toggle="tooltip" title="I've got it!!!">
-                    <span class="glyphicon glyphicon-ok"></span>
-                  </span>
-                  <span class="badge in-progress alert-success" rel="tooltip" data-toggle="tooltip" title="In progress">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                  </span>
-                  <span class="badge in-thought alert-success" rel="tooltip" data-toggle="tooltip" title="in thought">
-                    <span class="glyphicon glyphicon-question-sign"></span>
-                  </span>
+                  <button type="button" class="btn badge"><span class="glyphicon glyphicon-edit"></span>edit</button>
+                  <button type="button" class="btn badge"><span class="glyphicon glyphicon-edit"></span>remove</button>
                 </div>
               </li>
 
@@ -121,39 +75,93 @@
 
 
           <!-- FRIENDS -->
-          <div class="panel panel-default friends" style="display: none;">
+          <div class="panel panel-default friends">
             <div class="panel-heading">
               <ul class="nav nav-pills nav-justified" role="tablist">
                 <li><a hfer="#">Whishlist</a></li>
                 <li class="active"><a hfer="#">Friends</a></li>
+                <li><a href="#">Friendship requests</a></li>
               </ul>
             </div>
             <ul class="friends list-group">
 
               <li class="list-group-item friend">
-                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail pull-left image64x64">
-                <h4>Sarah Connor <small><a href="#">@sarahconnor</a></small></h4>
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image64x64">
+
+                <h4 style="display: inline;">Sarah Connor <small><a href="#">@sarahconnor</a></small></h4>
+                <button class="badge btn pull-right add-friend">add to friends</button>
+                <button class="badge btn pull-right remove-friend">remove from friends</button>
               </li>
 
               <li class="list-group-item friend">
-                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail pull-left image64x64">
-                <h4>Joe Black <small><a href="#">@black</a></small></h4>
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image64x64">
+
+                <h4 style="display: inline;">Sarah Connor <small><a href="#">@sarahconnor</a></small></h4>
+                <button class="badge btn pull-right add-friend">add to friends</button>
+                <button class="badge btn pull-right remove-friend">remove from friends</button>
               </li>
 
               <li class="list-group-item friend">
-                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail pull-left image64x64">
-                <h4>Mr. Anderson <small><a href="#">@neo</a></small></h4>
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image64x64">
+
+                <h4 style="display: inline;">Sarah Connor <small><a href="#">@sarahconnor</a></small></h4>
+                <button class="badge btn pull-right add-friend">add to friends</button>
+                <button class="badge btn pull-right remove-friend">remove from friends</button>
               </li>
 
             </ul>
           </div>
 
+          <!-- ITEM-EDIT -->
+          <div class="panel panel-default edit-item">
+            <div class="panel-heading">
+              <h2 class="panel-title">Add/Edit Wish Item</h2>
+            </div>
+            <div class="panel-body">
+              <form role="form">
+                <div class="form-group">
+                  <label for="title-input">Title</label>
+                  <input type="text" class="form-control" id="title-input" name="title" placeholder="Enter title" required>
+                </div>
+                <div class="form-group">
+                  <label for="description-input">Description</label>
+                  <textarea class="form-control" rows="3" id="description-input" name="descriptiom" placseholder="Enter description" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="url-input">URL</label>
+                  <input type="url" class="form-control" id="url-input" name="url" placeholder="Enter URL">
+                </div>
+                <div class="form-group">
+                  <label for="photo-input">Photo URL</label>
+                  <input type="url" class="form-control" id="photo-input" name="photo" placeholder="Enter URL">
+                </div>
+                <input type="button" class="btn btn-primary" value="Submit"/>
+              </form>
+            </div>
+          </div>
+
+
           <!-- ITEM -->
           <div class="panel panel-default item">
 
             <div class="panel-heading">
-              <h4 class="title">iphone <small class="user-created">for @joe</small></h4>
-              <small class="date-created pull-right">created at 10:00 pm, 1 Jan 2014</small>
+              <div class="current-status badges pull-right">
+                <button class="btn badge gifted" rel="tooltip" data-toggle="tooltip" title="Gifted!!!">
+                  <span class="glyphicon glyphicon-gift"></span>
+                </button>
+                <button class="btn badge got-it " rel="tooltip" data-toggle="tooltip" title="I've got it!!!">
+                  <span class="glyphicon glyphicon-ok"></span>
+                </button>
+                <button class="btn badge in-progress" rel="tooltip" data-toggle="tooltip" title="In progress">
+                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                </button>
+                <button class="btn badge in-thought alert-success" rel="tooltip" data-toggle="tooltip" title="in thought">
+                  <span class="glyphicon glyphicon-question-sign"></span>
+                </button>
+              </div>
+              <h4 class="title">iphone <small class="user-created">for @joe</small><br>
+                <small class="date-created">created at 10:00 pm, 1 Jan 2014</small>
+              </h4>
             </div>
 
             <div class="panel-body">
@@ -171,9 +179,11 @@
                   eveniet harum fugiat amet rerum. Atque harum voluptates quidem est
                   ipsa maiores sunt? Ipsa molestiae dolor ducimus veritatis!
                 </p>
+                <a class="url" href="#">amazom.com</a>
+
               </div>
 
-              <h4>Comments:</h4>
+              <h3>Comments:</h3>
 
               <ul class="comments list-unstyled">
 
@@ -226,9 +236,9 @@
 
               <form role="form">
                 <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea class="form-control" rows="3" name="body"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary add-comment">Add Comment</button>
+                <input type="button" class="btn btn-primary add-comment" value="Add Comment"/>
               </form>
 
 
@@ -240,7 +250,7 @@
 
         <!-- TIMELINE -->
         <div class="col-md-4">
-          <div class="panel panel-default timeline">
+          <div class="panel panel-default side-pane timeline">
             <div class="panel-heading">
               <h2 class="panel-title">Timeline</h2>
             </div>
@@ -269,6 +279,40 @@
 
             </ul>
 
+          </div>
+
+          <div class="panel panel-default side-pane item-stutuses">
+            <div class="panel-heading">
+              <h2 class="panel-title">Statuses</h2>
+            </div>
+
+            <ul class="list-group item-statuses">
+
+              <li class="list-group-item item-status">
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image32x32 pull-left"/>
+                <a href="#" class="user">@sarahconnor</a>
+                <span class="badge alert-success pull-right">gifts <span class="glyphicon glyphicon-gift"/></span>
+              </li>
+
+              <li class="list-group-item item-status">
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image32x32 pull-left"/>
+                <a href="#" class="user">@sarahconnor</a>
+                <span class="badge alert-success pull-right">gifts <span class="glyphicon glyphicon-gift"/></span>
+              </li>
+
+              <li class="list-group-item item-status">
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image32x32 pull-left"/>
+                <a href="#" class="user">@sarahconnor</a>
+                <span class="badge alert-success pull-right">gifts <span class="glyphicon glyphicon-gift"/></span>
+              </li>
+
+              <li class="list-group-item item-status">
+                <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail image32x32 pull-left"/>
+                <a href="#" class="user">@sarahconnor</a>
+                <span class="badge alert-success pull-right">gifts <span class="glyphicon glyphicon-gift"/></span>
+              </li>
+
+            </ul>
           </div>
         </div>
       </div>
