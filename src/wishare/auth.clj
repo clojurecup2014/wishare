@@ -21,39 +21,22 @@
     (if (exclude (request :uri))
       (handler request)
       (do
-        ;; TODO do some auth
         (handler request)))))
 
-;; (defn twitter-signin
-;;   "/signin - Twitter authorization handler"
-;;   [cookies]
-;;   (if (empty? (:value (cookies "twitter-user")))
-;;     (do (twi/oauth-authorize (:oauth-token twitter-request-token))
-;;         {:headers {"Content-Type" "text/plain"}
-;;          :body "Authentication..."})
-;;     {:status 302
-;;      :headers {"Location" "/user"}}))
 
-;; (defn twitter-auth
-;;   "/signin/auth - callback for Twitter OAuth API"
-;;   [params cookies]
-;;   (def twitter-oauth-verifier (params :oauth_verifier))
-;;   (def twitter-oauth-token (params :oauth_token))
-;;   (def twitter-access-token
-;;     (twi/oauth-access-token
-;;      twitter-consumer-key
-;;      twitter-oauth-token
-;;      twitter-oauth-verifier))
-;;   {:headers {"Content-Type" "text/plain"}
-;;    :cookies {"twitter-user" {:value (:screen-name twitter-access-token) :path "/"}
-;;              "twitter-id" {:value (:user-id twitter-access-token) :path "/"}}
-;;    :body (:screen-name twitter-access-token)})
-
-;; (defn user
-;;   "Possible it will be user's profile page"
-;;   [cookies]
-;;   (if (not (empty? (:value (cookies "twitter-user"))))
-;;     (def response (str "You are logged in as @" (:value (cookies "twitter-user"))))
-;;     (def response "Please sign in"))
-;;   {:headers {"Content-Type" "text/plain"}
-;;    :body response})
+(defn signin
+  "/signin - Twitter authorization handler"
+  [params cookies]
+  (let [key (config :auth :twitter :key)
+        sec (config :auth :twitter :secret)
+        verifier (params :oauth_verifier nil)
+        token (params :oauth_token nil)
+        oauth-req (twi/oauth-request-token key sec)]
+    (if-not verifier
+      {:headers {"Location" (twi/oauth-authorization-url (:oauth-token oauth-req))}
+       :status 302}
+      (let [access-token (twi/oauth-access-token key token verifier)]
+        {:headers {"Location" "/"}
+         :status 302
+         :cookies {"twitter-user" {:value (:screen-name access-token) :path "/"}
+                   "twitter-id" {:value (:user-id access-token) :path "/"}}}))))
