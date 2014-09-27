@@ -42,7 +42,8 @@
   :datomic {:schemas ["resources/datomic" ["schema.edn"]]}
 
   :profiles {:dev
-             {:datomic {:config "resources/datomic/free-transactor-template.properties"
+             {:plugins [[lein-datomic "0.2.0"]]
+              :datomic {:config "resources/datomic/free-transactor-template.properties"
                         :db-uri "datomic:free://localhost:4334/wishare-db"}
               :dependencies [[javax.servlet/servlet-api "2.5"]]}
              :uberjar {:aot [wishare.main]}})

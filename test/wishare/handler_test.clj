@@ -1,14 +1,13 @@
 (ns wishare.handler-test
   (:require [clojure.test :refer :all]
             [wishare.handler :refer :all]
-            [ring.mock.request :as mock]))
+            [ring.mock.request :as mock]
+            [expectations :refer [expect]]))
 
-(deftest test-app
-  (testing "main route"
-    (let [response (app (mock/request :get "/"))]
-      (is (= (:status response) 200))
-      (is (= (:body response) "Hello World"))))
+(expect 200
+        (let [response (app (mock/request :get "/"))]
+          (:status response)))
 
-  (testing "not-found route"
-    (let [response (app (mock/request :get "/invalid"))]
-      (is (= (:status response) 404)))))
+(expect 404
+        (let [response (app (mock/request :get "/invalid"))]
+          (:status response)))
