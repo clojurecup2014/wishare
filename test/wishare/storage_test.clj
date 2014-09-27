@@ -13,11 +13,13 @@
       conn)))
 
 ;; Adding one owner should allow up to find that owner
-(expect #{["jhon@coolmail.com"]}
+(expect #{["jhon@coolmail.com" "Jhon"]}
         (with-redefs [conn (create-empty-im-memory-db )]
         (do
           (add-user "Jhon"  "jhon@coolmail.com")
           (find-all-users))))
+
+()
 
 
 

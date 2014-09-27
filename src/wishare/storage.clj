@@ -14,5 +14,6 @@
                       :user/email email}]
                ))
 (defn find-all-users []
-  (d/q '[:find ?user :where [_ :user/email ?user]]
+  (d/q '[:find ?email ?real-name :where [_ :user/email ?email]
+                                        [_ :user/real-name ?real-name] ]
        (d/db conn)))
