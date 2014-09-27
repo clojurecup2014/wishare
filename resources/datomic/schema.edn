@@ -1,7 +1,7 @@
 ;; Users
 
 [{:db/id #db/id[:db.part/db]
-  :db/ident :user/realName
+  :db/ident :user/real-name
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "A user's real name"
@@ -17,7 +17,7 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :user/date_created
+  :db/ident :user/date-created
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A user's account creation date"
@@ -42,10 +42,11 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/many
   :db/isComponent true
-  :db.install/_attribute :db.part/db}]
+  :db.install/_attribute :db.part/db}
 
 ;; Wish
-[{:db/id #db/id[:db.part/db]
+
+ {:db/id #db/id[:db.part/db]
   :db/ident :wish/title
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -99,11 +100,11 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/many
   :db/doc "All urls for one wish"
-  :db.install/_attribute :db.part/db}]
+  :db.install/_attribute :db.part/db}
 
 ;; Friendships request
 
-[{:db/id #db/id[:db.part/db]
+ {:db/id #db/id[:db.part/db]
   :db/ident :friendshipRequest/sender
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
@@ -115,10 +116,10 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "Friendship request receiver"
-  :db.install/_attribute :db.part/db}]
+  :db.install/_attribute :db.part/db}
 
 ;; Wish comment
-[{:db/id #db/id[:db.part/db]
+{:db/id #db/id[:db.part/db]
   :db/ident :wishComment/body
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -130,19 +131,19 @@
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A wish comment timestamp"
-  :db.install/_attribute :db.part/db}]
+  :db.install/_attribute :db.part/db}
 
 ;; Wish link
-[{:db/id #db/id[:db.part/db]
+ {:db/id #db/id[:db.part/db]
   :db/ident :wishLink/url
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "A wish link url"
-  :db.install/_attribute :db.part/db}]
+  :db.install/_attribute :db.part/db}
 
 ;; Wish status
 
-[{:db/id #db/id[:db.part/db]
+ {:db/id #db/id[:db.part/db]
   :db/ident :wishUserStatus/user
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
