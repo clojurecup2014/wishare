@@ -6,3 +6,5 @@
 (def conn (d/connect uri))
 
 
+(defn add-user [email])
+(defn find-all-users [])
