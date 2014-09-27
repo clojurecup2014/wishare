@@ -19,5 +19,5 @@
 (em/defsnippet items
   :compiled "templates/template.html" ["div.wishlist"]
   [{:keys [rows]}]
-  [""] (ef/remove-attr "style")
+  [".nav li:last-child" (ef/remove-node)]
   ["ul.wishlist"] (ef/content (map item rows)))

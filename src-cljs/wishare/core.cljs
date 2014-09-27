@@ -13,13 +13,11 @@
 (def timestamps [{:description "Wished an iPhone6" :time "5 min"}
                  {:description "Gifted a bat" :time "2 days"}])
 
-
 (em/defsnippet timestamp
-  :compiled "templates/template.html" [".timeline li"]
+  :compiled "templates/template.html" [".timeline li:first-child"]
   [{:keys [description time]}]
   [".description"] (ef/content description)
   [".timestamp"] (ef/content time))
-
 
 (em/defsnippet profile-page
   :compiled "templates/template.html" ["body"]
@@ -32,9 +30,24 @@
                                              {:title "222222"}]}))
   [".timeline ul"] (ef/content (map timestamp timestamps)))
 
+(em/defsnippet my-profile
+  :compiled "templates/template.html" [".container"]
+  []
+  [".dashboard .panel:not(.wishlist), .panel.item-statuses, .page-header button"]
+    (ef/remove-node)
+  [".wish-item span.badge:not(:first-child)"] (ef/remove-node)
+  [".wish-item"] (em/clone-for [row [{:title "iPhone6" :gifted false}
+                                     {:title "NVidia Shield" :gifted true}]]
+                               ".title" (ef/content (:title row))
+                               "span.badge" (when (not (:gifted row))
+                                              (ef/remove-node))
+                               "button.edit" (when (:gifted row)
+                                               (ef/remove-node)))
+  [".timeline li"] (ef/remove-node)
+  [".timeline"] (ef/append (map timestamp timestamps)))
+
 
 (defn ^:export renderProfile
   []
-  (ef/at js/document
-         ["body"]
-         (ef/content (profile-page))))
+  (ef/at ["body"] (ef/append (my-profile))))
+
