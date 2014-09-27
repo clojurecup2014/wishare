@@ -16,6 +16,7 @@
 
 (defroutes app-routes
   (GET "/" [] (slurp "resources/public/index.html"))
+  (GET "/profile" [] (slurp "resources/public/profile.html"))
   ;;(GET "/signin" {cookies :cookies} (auth/twitter-signin cookies))
   ;;(GET "/signin/auth" {params :params cookies :cookies} (auth/twitter-auth params cookies))
   ;;(GET "/user" {cookies :cookies} (auth/user cookies))

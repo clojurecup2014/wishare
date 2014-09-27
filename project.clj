@@ -17,7 +17,7 @@
                  [oauth-clj "0.1.13"]
                  [ring-mock "0.1.5"]
                  ;; client-side
-                 ;; TODO
+                 [enfocus "2.1.0"]
                  ]
 
   :plugins [[lein-ring "0.8.11"]

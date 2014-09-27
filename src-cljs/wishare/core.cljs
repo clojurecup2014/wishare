@@ -1,15 +1,41 @@
-(ns wishare.core)
+(ns wishare.core
+  (:require [enfocus.core :as ef]
+            [enfocus.events :as events])
+  (:require-macros [enfocus.macros :as em]))
 
-(def state (atom 0))
 
-(.setInterval js/window
- (fn [] (swap! state
-              (fn [x]
-                (let [el (.getElementById js/document "animation")]
-                  (set! (.-textContent el)
-                        ({0 "(o  )..(o  )"
-                          1 "( o )..( o )"
-                          2 "(  o)..(  o)"
-                          3 "( o )..( o )"} x))
-                  (if (< x 3) (inc x) 0)))))
- 500)
+(def wishes ["iPhone6"
+             "Tesla"
+             "Hoverboard"])
+
+(def timestamps [{:description "Wished an iPhone6" :time "5 min"}
+                 {:description "Gifted a bat" :time "2 days"}])
+
+
+(em/defsnippet wish
+  :compiled "templates/profile.html" ["div.wishlist .wishlist li"]
+  [title]
+  ["a.title"] (ef/content title))
+
+
+(em/defsnippet timestamp
+  :compiled "templates/profile.html" [".timeline li"]
+  [{:keys [description time]}]
+  [".description"] (ef/content description)
+  [".timestamp"] (ef/content time))
+
+
+(em/defsnippet profile-page
+  :compiled "templates/profile.html" ["body"]
+  []
+  [".page-header h1"] (ef/content "Moe")
+  ["div.wishlist"] (ef/remove-attr "style")
+  ["div.wishlist .wishlist"] (ef/content (map wish wishes))
+  [".timeline ul"] (ef/content (map timestamp timestamps)))
+
+
+(defn ^:export renderProfile
+  []
+  (ef/at js/document
+         ["body"]
+         (ef/content (profile-page))))
