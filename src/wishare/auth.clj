@@ -21,7 +21,10 @@
     (if (exclude (request :uri))
       (handler request)
       (do
-        (handler request)))))
+        (if-not ((:cookies request) "twitter-id")
+          (handler {:request-method :get
+                    :uri "/signin"})
+          (handler request))))))
 
 
 (defn signin

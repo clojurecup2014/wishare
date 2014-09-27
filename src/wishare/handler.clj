@@ -8,7 +8,7 @@
             [ring.middleware.cookies :refer [wrap-cookies]]
             [ring.middleware.session :refer [wrap-session]]
             [clj-redis-session.core :refer [redis-store]]
-            [wishare.auth :refer [with-auth]]))
+            [wishare.auth :refer [with-auth signin]]))
 
 
 (def debug? (config :debug?))
@@ -16,9 +16,8 @@
 
 (defroutes app-routes
   (GET "/" [] (slurp "resources/public/index.html"))
-  ;;(GET "/signin" {cookies :cookies} (auth/twitter-signin cookies))
-  ;;(GET "/signin/auth" {params :params cookies :cookies} (auth/twitter-auth params cookies))
-  ;;(GET "/user" {cookies :cookies} (auth/user cookies))
+  (GET "/signin" {params :params cookies :cookies} (signin params cookies))
+  (GET "/test" request (str request))
   (route/resources "/")
   (route/not-found "Not Found"))
 
