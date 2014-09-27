@@ -7,6 +7,7 @@
             [prone.middleware :as prone]
             [ring.middleware.cookies :refer [wrap-cookies]]
             [ring.middleware.session :refer [wrap-session]]
+            [clj-redis-session.core :refer [redis-store]]
             [wishare.auth :as auth]))
 
 
@@ -33,12 +34,21 @@
         (throw e)))))
 
 
+(def redis-conn
+  "Redis connection preferences"
+  {:pool {}
+   :spec {:host "127.0.0.1" :port 6379}})
+
+
 (def app
   (->
    (cond-> app-routes
            debug? prone/wrap-exceptions)
    with-logging
    wrap-cookies
+   (wrap-session {:store (redis-store
+                          redis-conn
+                          {:prefix "wishare-session"})})
    handler/site))
 
 
