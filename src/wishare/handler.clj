@@ -15,6 +15,7 @@
 (def debug? (config :debug?))
 
 
+; TODO wrap-edn middleware
 (defroutes api-routes
   (GET "/wishlist" [] api/my-wishlist)
   (GET "/wishlist/:username" [] api/user-wishlist)
@@ -51,7 +52,7 @@
    (cond-> app-routes
            debug? prone/wrap-exceptions)
    with-logging
-   (with-auth :exclude #{"/signin" "/"})
+   ;(with-auth :exclude #{"/signin" "/"})
    wrap-cookies
    (wrap-session
     {:store (redis-store

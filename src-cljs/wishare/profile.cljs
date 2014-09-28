@@ -5,7 +5,7 @@
 
 (q/defcomponent UserHeader
   "User profile header"
-  [readonly?
+  [mode
    {:keys [avatar id name nickname friend?]
     :or {avatar nil
          friend? false}}]
@@ -19,7 +19,7 @@
     (d/h1 {:className "user"}
           name
           (d/small {} nickname))
-    (when (not readonly?)
+    (when-not (#{:readonly :my-own} mode)
       (if friend?
         (d/button {:className "btn btn-xs btn-danger remove-friend"}
                   "Remove from friends")
