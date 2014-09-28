@@ -71,11 +71,23 @@
                       :where [?wish-user :user/login ?user-login]
                       [?w :wish/user ?wish-user]
                       [?w :wish/user-created ?wish-user-created]
-                      [(not= ?wish-user ?wish-user-created)]
-                      ]
+                      [(not= ?wish-user ?wish-user-created)]]
                     (d/db conn)
                     user-login)]
     (map (partial apply get-wish-by-id) wishes)))
+
+(defn find-own-wish-for-user [user-login]
+  "Вернет список подарков пользователя в виде списка id"
+  (let [wishes (d/q '[:find ?w
+                      :in $ ?user-login
+                      :where [?wish-user :user/login ?user-login]
+                      [?w :wish/user ?wish-user]
+                      [?w :wish/user-created ?wish-user-created]
+                      [(= ?wish-user ?wish-user-created)]]
+                    (d/db conn)
+                    user-login)]
+    (map (partial apply get-wish-by-id) wishes)))
+
 
 
 
