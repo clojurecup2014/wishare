@@ -24,14 +24,15 @@
                     :or {read-only false}
                     :as request}]
   (let [user (get-current-user request)
-        wishes (storage/find-all-user-self-wishes (:username user))
+        wishes (storage/find-own-wish-for-user (:username user))
         timeline (storage/find-user-own-timeline (:username user))]
     {:readonly? read-only
      :header user
      :dashboard {:mode :wishlist
                  :my-own? true
                  :items wishes}
-     :timeline timeline}))
+     :timeline timeline})
+  )
 
 
 (defn my-friends [request]

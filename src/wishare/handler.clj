@@ -15,6 +15,7 @@
 (def debug? (config :debug?))
 
 
+; TODO wrap-edn middleware
 (defroutes api-routes
   (GET "/wishlist" [] api/my-wishlist)
   (GET "/wishlist/:username" [] api/user-wishlist)

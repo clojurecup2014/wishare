@@ -16,6 +16,7 @@
                  [commons-codec "1.4"]
                  [oauth-clj "0.1.13"]
                  [ring-mock "0.1.5"]
+                 [fogus/ring-edn "0.2.0"]
                  [enlive "1.1.5"]
                  ;; client-side
                  [com.facebook/react "0.11.1"]
@@ -54,4 +55,4 @@
                         :install-location "/tmp/datomic/datomic-free-0.9.4899"}
               :dependencies [[javax.servlet/servlet-api "2.5"]
                              [ring-mock "0.1.5"]]}
-             :uberjar {:aot [wishare.main]}})
+              :uberjar {:aot [wishare.main]}})
