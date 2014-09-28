@@ -5,10 +5,10 @@
 
 (q/defcomponent UserHeader
   "User profile header"
-  [mode
-   {:keys [avatar id name nickname friend?]
+  [{:keys [avatar id name nickname friend?]
     :or {avatar nil
-         friend? false}}]
+         friend? false}}
+   mode]
   (d/div
    {:className "page-header panel panel-default col-md-12"}
    (d/div

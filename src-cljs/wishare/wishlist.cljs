@@ -45,7 +45,7 @@
 
 (q/defcomponent Wishlist
   "Wishlist"
-  [mode heading items]
+  [items heading mode]
   (d/div
    {:className "panel panel-default wishlist"}
    heading

@@ -37,8 +37,8 @@
 
 
 (defroutes app-routes
-  (GET "/" [] (slurp "resources/public/index.html"))
-  (GET "/profile" [] (slurp "resources/public/profile.html"))
+  ;;(GET "/" [] (slurp "resources/public/index.html"))
+  (GET "/" [] (slurp "resources/public/profile.html"))
   (context "/api" [] (-> api-routes
                          (wrap-edn-content-type)
                          (wrap-edn-params)))
