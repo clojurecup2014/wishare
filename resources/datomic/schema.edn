@@ -17,6 +17,13 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
+  :db/ident :user/avatar-url
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "A user's profile picture"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
   :db/ident :user/date-created
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
@@ -31,7 +38,7 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :user/date_modified
+  :db/ident :user/date-modified
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A user's account modified date"
