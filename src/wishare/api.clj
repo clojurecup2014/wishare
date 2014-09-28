@@ -52,7 +52,7 @@
   (let [current-user (get-current-user request)
         other-user (storage/get-user-by-id username)]
     (if (= (:username current-user) username)
-      (redirect "/wishlist")
+      (redirect "wishlist")
       (if (is-friends? current-user other-user)
         (let [wishes (storage/find-wish-for-user
                       (:username other-user))
@@ -67,5 +67,44 @@
         (my-wishlist (assoc request :read-only true))))))
 
 
-(defn user-friends [request]
-  ())
+(defn user-friends [{{username :username} :params :as request}]
+  (let [current-user (get-current-user request)
+        other-user (storage/get-user-by-id username)]
+    (if (= (:username current-user) username)
+      (redirect "friends")
+      {:read-only? false
+       :header other-user
+       :dashboard {:mode :friends
+                   :my-own? false
+                   :items (storage/find-all-user-friends username)}
+       :timeline (storage/find-user-timeline username)})))
+
+
+(defn wish-item [request]
+  {:id 123
+   :title "iPhone6"
+   :description "World the most wanted cell phone!!!"
+   :url "/url"
+   :photo-url "/img/nophoto.png"
+   :user-status :in-thought
+   :comments [{:id 3534
+               :username "joe"
+               :body "Hello world!"
+               :timestamp "01-01-1991"}
+              {:id 2355
+               :username "black"
+               :body "Hello world!!!"
+               :timestamp "13-01-1991"}
+              {:id 3231
+               :username "joe"
+               :body "Hello world!"
+               :timestamp "11-01-1991"}]
+   })
+
+(defn wish-item-submit [request])
+
+(defn wish-item-create [request])
+
+(defn wish-comment-create [request])
+
+(defn wish-status-submit [request])
