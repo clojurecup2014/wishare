@@ -13,6 +13,13 @@
                (d/db conn)
                user-login)))
 
+(defn get-user-login-by-id [user-id]
+  (ffirst (d/q '[:find ?login
+         :in $ ?user-id
+         :where [?user-id :user/login ?login]]
+       (d/db conn)
+       user-id)))
+
 ;; ----- User -----
 
 (defn add-user [real-name email & {:keys [avatar-url] :or {avatar-url ""}}]
@@ -24,9 +31,10 @@
                       :user/avatar-url avatar-url
                       :user/login email}]))
 
-(defn get-user-by-id [user-id]
+(defn get-user-by-id [user]
   "Отдает все данные по пользователю по его id."
-  (let [fields [:real-name :login :avatar-url :date-created :date-last-login :date-modified]]
+  (let [fields [:real-name :login :avatar-url :date-created :date-last-login :date-modified]
+        user-id (find-wish-user-id user)]
     (zipmap fields
             (first (d/q '[:find ?real-name ?login ?avatar-url ?date-created ?date-last-login ?date-modified
                           :in $ ?u
@@ -254,22 +262,21 @@
                       :friendship/acceptor (find-wish-user-id acceptor)
                       :friendship/iniciator (find-wish-user-id iniciator)}]))
 
-(defn find-friends [user-id]
-  (let [acceptors (d/q '[:find ?acceptor
-                         :in $ ?user-id
-                         :where [_ :friendship/acceptor ?acceptor]
-                         [_ :friendship/iniciator ?user-id]]
-                       (d/db conn)
-                       user-id)
-        iniciators  (d/q '[:find ?iniciator
+(defn find-friends [user]
+  (let [user-id (find-wish-user-id user)]
+    (let [acceptors (d/q '[:find ?acceptor
                            :in $ ?user-id
-                           :where [_ :friendship/iniciator ?iniciator]
-                           [_ :friendship/acceptor ?user-id]]
+                           :where [_ :friendship/acceptor ?acceptor]
+                           [_ :friendship/iniciator ?user-id]]
                          (d/db conn)
-                         user-id)]
-
-    (distinct (into (apply concat iniciators) (apply concat acceptors))))
-
-  )
+                         user-id)
+          iniciators  (d/q '[:find ?iniciator
+                             :in $ ?user-id
+                             :where [_ :friendship/iniciator ?iniciator]
+                             [_ :friendship/acceptor ?user-id]]
+                           (d/db conn)
+                           user-id)]
+      (map get-user-login-by-id (distinct (into (apply concat iniciators) (apply concat acceptors))))
+      )))
 
 
