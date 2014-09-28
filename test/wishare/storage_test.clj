@@ -73,17 +73,16 @@
             (add-friend "jhon@coolmail.com" "paul@maol.com")
             (add-friend "steve@chachacha.org" "jhon@coolmail.com")
 
-            (->> (find-wish-user-id "jhon@coolmail.com")
-                 find-friends
+            (->> (find-friends "jhon@coolmail.com")
                  (map get-user-by-id)
                  (apply vector)
                  (map :real-name)
-                 set))))
+                 set
+                 ))))
 
 (expect "Jhon"
         (with-redefs [conn (create-empty-im-memory-db)]
           (do
             (add-user "Jhon" "jhon@coolmail.com")
-            (->> (find-wish-user-id "jhon@coolmail.com")
-                 get-user-by-id
+            (->> (get-user-by-id "jhon@coolmail.com")
                  :real-name))))
