@@ -30,13 +30,13 @@
   [request]
   (let [user (get-current-user request)
         wishes (storage/find-own-wish-for-user (:login user))
-        ;;timeline (storage/find-user-own-timeline (:id user))
+        ;;timeline (storage/find-user-own-timeline (:login user))
         ]
     (pr-str {:mode :my-own
              :header user
              :dashboard {:active :wishlist
                          :items wishes}
-             :timeline '();;timeline
+             :timeline '() ;;timeline
              })))
 
 
