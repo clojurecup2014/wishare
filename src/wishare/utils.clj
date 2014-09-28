@@ -21,3 +21,11 @@
         (catch Exception e "Error"))
       nil)
     (keys image-paths))))
+
+
+(def static ["ico" "png" "jpg" "jpeg" "gif" "css" "js"])
+
+(defn static-resource-uri?
+  "check is the URI links to static resource"
+  [uri]
+  (not-every? nil? (map #(re-find (re-pattern (str "\\." % "$")) uri) static)))
