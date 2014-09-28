@@ -17,14 +17,9 @@
                  [oauth-clj "0.1.13"]
                  [ring-mock "0.1.5"]
                  [fogus/ring-edn "0.2.0"]
-                 [enlive "1.1.5"]
-                 ;; client-side
-                 [com.facebook/react "0.11.1"]
-                 [quiescent "0.1.4"]
-                 [sablono "0.2.21"]]
+                 [enlive "1.1.5"]]
 
   :plugins [[lein-ring "0.8.11"]
-            [lein-cljsbuild "1.0.3"]
             [lein-depgraph "0.1.0"]]
 
   :ring {:handler wishare.handler/app
@@ -32,27 +27,35 @@
 
   :main wishare.main
 
-  :cljsbuild {:builds {:dev
-                       {:source-paths ["src-cljs"]
-                        :compiler {:output-to "resources/public/js/main.js"
-                                   ;;:output-dir "resources/public/js"
-                                   :optimization :none}}
-
-                       :prod
-                       {:source-paths ["src-cljs"]
-                        :compiler {:output-to "resources/public/js/main.js"
-                                   :optimization :advanced
-                                   :pertty-print false
-                                   :preamble ["react/react.min.js"]
-                                   :externs ["react/externs/react.js"]}}}}
-
   :datomic {:schemas ["resources/datomic" ["schema.edn"]]}
 
-  :profiles {:dev
-             {:plugins [[lein-datomic "0.2.0"]]
-              :datomic {:config "resources/datomic/free-transactor-template.properties"
-                        :db-uri "datomic:free://localhost:4334/wishare-db"
-                        :install-location "/tmp/datomic/datomic-free-0.9.4899"}
-              :dependencies [[javax.servlet/servlet-api "2.5"]
-                             [ring-mock "0.1.5"]]}
-              :uberjar {:aot [wishare.main]}})
+  :profiles {;; Dev profile
+             :dev {:plugins [[lein-datomic "0.2.0"]]
+                   :datomic {:config "resources/datomic/free-transactor-template.properties"
+                             :db-uri "datomic:free://localhost:4334/wishare-db"
+                             :install-location "/tmp/datomic/datomic-free-0.9.4899"}
+                   :dependencies [[javax.servlet/servlet-api "2.5"]
+                                  [ring-mock "0.1.5"]]}
+
+             ;; Profile for building ClJS
+             :cljs {:plugins [[lein-cljsbuild "1.0.3"]]
+                    :dependencies [[com.facebook/react "0.11.1"]
+                                   [quiescent "0.1.4"]
+                                   [sablono "0.2.21"]]
+                    :cljsbuild
+                    {:builds {:dev
+                              {:source-paths ["src-cljs"]
+                               :compiler {:output-to "resources/public/js/main.js"
+                                          ;;:output-dir "resources/public/js"
+                                          :optimization :none}}
+
+                              :prod
+                              {:source-paths ["src-cljs"]
+                               :compiler {:output-to "resources/public/js/main.js"
+                                          :optimization :advanced
+                                          :pertty-print false
+                                          :preamble ["react/react.min.js"]
+                                          :externs ["react/externs/react.js"]}}}}}
+
+             ;; Uberjar settings
+             :uberjar {:aot [wishare.main]}})
