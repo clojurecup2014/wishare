@@ -15,7 +15,7 @@
 
 (def static ["ico" "png" "jpg" "jpeg" "gif" "css" "js"])
 
-(defn is-static-resource-uri
+(defn static-resource-uri?
   "check is the URI links to static resource"
   [uri]
   (not-every? nil? (map #(re-find (re-pattern (str "\\." % "$")) uri) static)))
@@ -25,7 +25,7 @@
   [handler & {:keys [exclude]
       :or {exclude #{}}}]
   (fn [request]
-    (if (or (exclude (request :uri)) (is-static-resource-uri (request :uri)))
+    (if (or (exclude (request :uri)) (static-resource-uri? (request :uri)))
       (handler request)
       (do
         (if-not ((:cookies request) "twitter-id")
