@@ -19,8 +19,8 @@
           (((first (html/select page-content (image-paths %))) :attrs) :src))
         ; TODO: logging for failed HTTP queries
         (catch Exception e "Error"))
-      nil)
-    (keys image-paths))))
+      nil))
+    (keys image-paths)))
 
 
 (def static ["ico" "png" "jpg" "jpeg" "gif" "css" "js"])

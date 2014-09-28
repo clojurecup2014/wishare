@@ -10,12 +10,14 @@
 
 
 (defn is-friends? [user1 user2]
+  "Друзья ли первый и второй пользователь"
     (contains?
      (:username user2)
      (map :username (storage/find-all-user-friends user1))))
 
 
 (defn get-current-user [request]
+  "Достаем текущего пользователя из реквеста"
   (let [user-id (get-request-user-id request)]
     (storage/get-user-by-id user-id)))
 
@@ -127,14 +129,25 @@
                          :as request}]
   (let [user-created (get-current-user request)
         to-user (storage/get-user-by-id user)]
+    (storage/add-wish user-created to-user title description url photo-url)))
 
-    ;; TODO
 
-    ))
+(defn wish-item-create [{{title :title
+                          user :user
+                          description :description
+                          url :url
+                          photo-url :photo-url
+                          } :params :as request}]
+  (let [user (get-current-user request)
+        user-to (get-current-user user)]
+    (storage/add-wish user-to user title description url photo-url)))
 
-(defn wish-item-create [request])
+;;[wish-id author-id body]
 
-(defn wish-comment-create [request])
+(defn wish-comment-create [{{wish :wish
+                             body :body} :params :as request}]
+  (let [user (get-current-user request)]
+    (storage/add-wish-comment wish user body)))
 
 (defn wish-status-submit [request])
 

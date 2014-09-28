@@ -78,6 +78,7 @@
                     user-login)]
     (map (partial apply get-wish-by-id) wishes)))
 
+
 (defn find-offered-wish-for-user [user-login]
   "Вернет список подарков пользователя в виде списка id"
   (let [wishes (d/q '[:find ?w
@@ -278,5 +279,3 @@
                            user-id)]
       (map get-user-login-by-id (distinct (into (apply concat iniciators) (apply concat acceptors))))
       )))
-
-
