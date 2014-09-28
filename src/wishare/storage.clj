@@ -64,6 +64,21 @@
                     user-login)]
     (map (partial apply get-wish-by-id) wishes)))
 
+(defn find-offered-wish-for-user [user-login]
+  "Вернет список подарков пользователя в виде списка id"
+  (let [wishes (d/q '[:find ?w
+                      :in $ ?user-login
+                      :where [?wish-user :user/login ?user-login]
+                      [?w :wish/user ?wish-user]
+                      [?w :wish/user-created ?wish-user-created]
+                      [(not= ?wish-user ?wish-user-created)]
+                      ]
+                    (d/db conn)
+                    user-login)]
+    (map (partial apply get-wish-by-id) wishes)))
+
+
+
 
 (defn add-wish [user-login user-created-login title description & {:keys [url photo-url] :or {url "" photo-url ""}}]
   "Добавление подарка"
@@ -72,7 +87,7 @@
                       :wish/url url
                       :wish/photo-url photo-url
                       :wish/title title
-                      :wish/user (find-wish-user-id user-login)
+                      :wish/user         (find-wish-user-id user-login)
                       :wish/user-created (find-wish-user-id user-created-login)
                       :wish/date-created (java.util.Date.)
                       :wish/date-modified (java.util.Date.)}]))
@@ -148,9 +163,10 @@
 
 (defn пуе-user-status-for-wish [wish-id user-id]
   "Вернет статус пдарка для юзера"
-  (let [comments (d/q '[:find ?c
+  (let [comments (d/q '[:find ?wuc
                         :in $ ?wish-id
-                        :where [?u :wish-user-status/wish ?wish-id]
+                        :where [?wuc]
+                        [?w :wish-user-status/wish ?wish-id]
                         [?u :wish-user-status/user ?user-id]]
                       (d/db conn)
                       wish-id)]
@@ -165,14 +181,6 @@
 
 
 ;; -----
-
-(defn find-all-user-self-wishes
-  "Find all wishes of one user who add it themself"
-  [user-email])
-
-(defn find-all-user-offered-wishes
-  "Find all wished to user offered from anothers"
-  [user-email])
 
 (defn find-all-wish-comments [wish-id])
 
