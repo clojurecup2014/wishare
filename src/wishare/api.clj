@@ -29,7 +29,7 @@
   [request]
   (let [user (get-current-user request)
         wishes (storage/find-own-wish-for-user (:login user))
-        ;;timeline (storage/find-user-own-timeline (:login user))
+        timeline (storage/find-user-own-timeline (:login user))
         ]
     (pr-str {:mode :my-own
              :header user
@@ -152,13 +152,18 @@
   (let [user (get-current-user request)]
     (storage/add-wish-comment wish user body)))
 
+;;[wish-id user-id status]
 
-(defn wish-status-submit
-  [request])
+(defn wish-status-submit [{{wish :wish
+                            status :status} :params :as request}]
+  (let [user (get-current-user request)]
+    (storage/set-wish-user-status wish user status)))
 
-(defn add-friend
-  [request])
+;;[iniciator acceptor]
 
+(defn add-friend [{{user-to :user-to} :params :as request}]
+  (let [user (get-current-user request)]
+    (storage/add-friend user user-to)))
 
 (defn remove-friend
   [request])

@@ -7,11 +7,15 @@
 (def conn (d/connect uri))
 
 (defn find-wish-user-id [user-login]
+  ;;(println user-login) (println "!!")
+  (if (nil? user-login) -1
   (ffirst (d/q '[:find ?user
                  :in $ ?user-login
                  :where [?user :user/login ?user-login]]
                (d/db conn)
-               user-login)))
+               user-login))))
+
+(find-wish-user-id "devww")
 
 (defn get-user-login-by-id [user-id]
   (ffirst (d/q '[:find ?login
