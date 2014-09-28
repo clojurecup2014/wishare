@@ -71,11 +71,23 @@
                       :where [?wish-user :user/login ?user-login]
                       [?w :wish/user ?wish-user]
                       [?w :wish/user-created ?wish-user-created]
-                      [(not= ?wish-user ?wish-user-created)]
-                      ]
+                      [(not= ?wish-user ?wish-user-created)]]
                     (d/db conn)
                     user-login)]
     (map (partial apply get-wish-by-id) wishes)))
+
+(defn find-own-wish-for-user [user-login]
+  "Вернет список подарков пользователя в виде списка id"
+  (let [wishes (d/q '[:find ?w
+                      :in $ ?user-login
+                      :where [?wish-user :user/login ?user-login]
+                      [?w :wish/user ?wish-user]
+                      [?w :wish/user-created ?wish-user-created]
+                      [(= ?wish-user ?wish-user-created)]]
+                    (d/db conn)
+                    user-login)]
+    (map (partial apply get-wish-by-id) wishes)))
+
 
 
 
@@ -161,8 +173,8 @@
                       :wish-user-status/timestamp (java.util.Date.)
                       :wish-user-status/status status}]))
 
-(defn пуе-user-status-for-wish [wish-id user-id]
-  "Вернет статус пдарка для юзера"
+(defn get-user-status-for-wish [wish-id user-id]
+  "Вернет статус подарка для юзера"
   (let [comments (d/q '[:find ?wuc
                         :in $ ?wish-id
                         :where [?wuc]
@@ -196,8 +208,35 @@
 
 ; ----- TIMELINE -----
 
-(defn find-user-own-timeline [{:keys [user-id limit]
-                               :or {limit 10}}])
+(defn add-timeline [user-id text]
+  "Adding timeline record"
+  @(d/transact conn [{:db/id (d/tempid :db.part/user)
+                      :timeline/user user-id
+                      :timeline/text text
+                      :timeline/timestamp (java.util.Date.)}]))
+
+(defn get-timeline-record-by-id [comment-id]
+  "Отдает все данные по таймлайну по его id."
+  (let [fields [:user :text :timestamp]]
+    (zipmap fields
+            (first (d/q '[:find ?user ?text ?timestamp
+                          :in $ ?t
+                          :where [?t :timeline/user ?user]
+                          [?u :timeline/text ?text]
+                          [?u :timeline/timestamp ?timestamp]])))))
+
+
+(defn find-user-own-timeline [{:keys [user-id limit] :or {limit 10}}]
+  "Вернет статус подарка для юзера"
+  (let [timeline (d/q '[:find ?t
+                        :in $ ?user-id
+                        :where
+                        [?t :timeline/user ?user-id]]
+                      (d/db conn)
+                      user-id)]
+    (map (partial apply get-wish-by-id) timeline)))
+
+
 
 (defn find-user-timeline [{:keys [user-id linit]
                            :or {limit 10}}])
