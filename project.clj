@@ -15,13 +15,16 @@
                  [clj-redis-session "2.1.0"]
                  [commons-codec "1.4"]
                  [oauth-clj "0.1.13"]
+                 [ring-mock "0.1.5"]
+                 [enlive "1.1.5"]
                  ;; client-side
                  [com.facebook/react "0.11.1"]
                  [quiescent "0.1.4"]
                  [sablono "0.2.21"]]
 
   :plugins [[lein-ring "0.8.11"]
-            [lein-cljsbuild "1.0.3"]]
+            [lein-cljsbuild "1.0.3"]
+            [lein-depgraph "0.1.0"]]
 
   :ring {:handler wishare.handler/app
          :init wishare.handler/init}
