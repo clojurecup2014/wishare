@@ -15,10 +15,13 @@
 
 ;; ----- User -----
 
-(defn add-user [real-name email]
+(defn add-user [real-name email & {:keys [avatar-url] :or {avatar-url ""}}]
   @(d/transact conn [{:db/id (d/tempid :db.part/user)
                       :user/real-name real-name
                       :user/date-created (java.util.Date.)
+                      :user/date-modified (java.util.Date.)
+                      :user/date-last-login (java.util.Date.)
+                      :user/avatar-url avatar-url
                       :user/login email}]))
 
 (defn get-user-by-id [user-id]
@@ -32,7 +35,10 @@
                           [?u :user/avatar-url ?avatar-url]
                           [?u :user/date-created ?date-created]
                           [?u :user/date-last-login ?date-last-login]
-                          [?u :user/date-modified ?date-modified]])))))
+                          [?u :user/date-modified ?date-modified]
+                          ]
+                        (d/db conn)
+                        user-id)))))
 
 ;; ----- Wish -----
 
@@ -243,7 +249,30 @@
 
 ;; ----- Friendship -----
 
-(defn get-friends [user-id]
-  ())
+(defn add-friend [iniciator acceptor]
+  @(d/transact conn [{:db/id (d/tempid :db.part/user)
+                      :friendship/acceptor (find-wish-user-id acceptor)
+                      :friendship/iniciator (find-wish-user-id iniciator)}]))
+
+(defn find-friends [user-id]
+  (let [acceptors (d/q '[:find ?acceptor
+                         :in $ ?user-id
+                         :where [_ :friendship/acceptor ?acceptor]
+                         [_ :friendship/iniciator ?user-id]]
+                       (d/db conn)
+                       user-id)
+        iniciators  (d/q '[:find ?iniciator
+                          :in $ ?user-id
+                          :where [_ :friendship/iniciator ?iniciator]
+                          [_ :friendship/acceptor ?user-id]]
+                        (d/db conn)
+                        user-id)]
+    ;;(distinct (into acceptors iniciators)))
+    ;;(into acceptors iniciators))
+    ;;acceptors)
+    ;;iniciators)
+    (distinct (into (apply concat iniciators) (apply concat acceptors))))
+    ;;#{1,2})
+  )
 
 

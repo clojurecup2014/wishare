@@ -54,7 +54,7 @@
     (if (= (:username current-user) username)
       (redirect "/wishlist")
       (if (is-friends? current-user other-user)
-        (let [wishes (storage/find-all-user-offered-wishes
+        (let [wishes (storage/find-own-wish-for-user
                       (:username other-user))
               timeline (storage/find-user-timeline
                         (:username other-user))]
