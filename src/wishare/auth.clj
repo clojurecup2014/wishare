@@ -17,16 +17,20 @@
 
 (defn with-auth
   "auth middleware"
-  [handler & {:keys [exclude]
-      :or {exclude #{}}}]
+  [handler & {:keys [api-route exclude]
+      :or {api-route "/api" exclude #{}}}]
   (fn [request]
-    (if (or (exclude (request :uri)) (utils/static-resource-uri? (request :uri)))
-      (handler request)
-      (do
-        (if-not ((:cookies request) "twitter-id")
-          (handler {:request-method :get
-                    :uri "/signin"})
-          (handler request))))))
+    (let [uri (request :uri)]
+      (if (or (exclude uri) (utils/static-resource-uri? uri))
+        (handler request)
+        (do
+          (if-not ((:cookies request) "twitter-id")
+            (if (re-find (re-pattern (str "^" api-route)) uri)
+              {:status 401
+               :body "401 Unauthorized"}
+              (handler {:request-method :get
+                        :uri "/signin"}))
+            (handler request)))))))
 
 
 (defn signin
