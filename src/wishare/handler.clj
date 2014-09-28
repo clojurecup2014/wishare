@@ -58,11 +58,11 @@
 
   (GET "/welcome" [] (slurp "resources/public/welcome.html"))
 
-  ;(GET "/signin" {params :params cookies :cookies} (signin params cookies))
-  (GET "/signin" request {:headers {"Location" "/"}
-                          :status 302
-                          :cookies {"twitter-user" {:value "dev" :path "/"}
-                                    "twitter-id" {:value 1 :path "/"}}})
+  (GET "/signin" {params :params cookies :cookies} (signin params cookies))
+  ;; (GET "/signin" request {:headers {"Location" "/"}
+  ;;                         :status 302
+  ;;                         :cookies {"twitter-user" {:value "dev" :path "/"}
+  ;;                                   "twitter-id" {:value 1 :path "/"}}})
 
   (route/resources "/")
   (route/not-found "Not Found"))
