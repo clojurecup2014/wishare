@@ -17,21 +17,27 @@
 
 (defn get-current-user
   [request]
-  (let [user-id (get-request-user-id request)]
-    (when-not (nil? user-id)
-      (storage/get-user-by-id user-id))))
+  (let [uid (get-request-user-id request)]
+    (if (nil? uid)
+      (let [{{{u :value} "twitter-user"} :cookies} request]
+        (println u)
+        (storage/add-user u u)
+        (storage/get-user-by-id u))
+      (storage/get-user-by-id uid))))
 
 
 (defn my-wishlist
   [request]
   (let [user (get-current-user request)
-        wishes (storage/find-own-wish-for-user (:username user))
-        timeline (storage/find-user-own-timeline (:username user))]
+        wishes (storage/find-own-wish-for-user (:login user))
+        ;;timeline (storage/find-user-own-timeline (:id user))
+        ]
     (pr-str {:mode :my-own
              :header user
              :dashboard {:active :wishlist
                          :items wishes}
-             :timeline timeline})))
+             :timeline '();;timeline
+             })))
 
 
 (defn my-friends
