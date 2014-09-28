@@ -15,51 +15,51 @@
 ;; Adding one owner should allow up to find that owner
 (expect #{["jhon@coolmail.com" "Jhon"]}
         (with-redefs [conn (create-empty-im-memory-db )]
-        (do
-          (add-user "Jhon"  "jhon@coolmail.com")
-          (find-all-users))))
+          (do
+            (add-user "Jhon"  "jhon@coolmail.com")
+            (find-all-users))))
 
 ;;Adding one user with one wish shoould allow us to fild that wish for that user
 (expect #{"Bike"}
         (with-redefs [conn (create-empty-im-memory-db)]
-        (do
-          (add-user "Jhon" "jhon@coolmail.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
-          (->> (find-wish-for-user "jhon@coolmail.com")
-               (map :title)
-               set
-               ))))
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+            (->> (find-wish-for-user "jhon@coolmail.com")
+                 (map :title)
+                 set
+                 ))))
 
 
 
 ;; Adding multiple users and wishes should allow us to find the pets for a particular user
 (expect #{"Knife" "Kitty"}
         (with-redefs [conn (create-empty-im-memory-db)]
-        (do
-          (add-user "Jhon" "jhon@coolmail.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
-          (add-user "Paul" "paul@maol.com")
-          (add-wish "paul@maol.com" "paul@maol.com" "Kitty" "Fliffy flyffy" :url "http://howtocookacat.com")
-          (add-wish "paul@maol.com" "paul@maol.com" "Knife" "The big one" :url "http://howtocookacat.com")
-          (set (map :title (find-wish-for-user "paul@maol.com") ) ))))
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+            (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
+            (add-user "Paul" "paul@maol.com")
+            (add-wish "paul@maol.com" "paul@maol.com" "Kitty" "Fliffy flyffy" :url "http://howtocookacat.com")
+            (add-wish "paul@maol.com" "paul@maol.com" "Knife" "The big one" :url "http://howtocookacat.com")
+            (set (map :title (find-wish-for-user "paul@maol.com") ) ))))
 
 (expect #{}
         (with-redefs [conn (create-empty-im-memory-db)]
-        (do
-          (add-user "Jhon" "jhon@coolmail.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
-          (set (map :title (find-offered-wish-for-user "jhon@coolmail.com") ) ))))
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+            (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
+            (set (map :title (find-offered-wish-for-user "jhon@coolmail.com") ) ))))
 
 (expect #{"Pen"}
         (with-redefs [conn (create-empty-im-memory-db)]
-        (do
-          (add-user "Jhon" "jhon@coolmail.com")
-          (add-user "Paul" "paul@maol.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
-          (add-wish "jhon@coolmail.com" "paul@maol.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
-          (set (map :title (find-offered-wish-for-user "jhon@coolmail.com"))))))
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (add-user "Paul" "paul@maol.com")
+            (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+            (add-wish "jhon@coolmail.com" "paul@maol.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
+            (set (map :title (find-offered-wish-for-user "jhon@coolmail.com"))))))
 
 
 (expect #{"Steve" "Jhon" "Paul"}
@@ -74,18 +74,18 @@
             (add-friend "steve@chachacha.org" "jhon@coolmail.com")
 
             (->> (find-wish-user-id "jhon@coolmail.com")
-              find-friends
-              (map get-user-by-id)
-              (apply vector)
-              (map :real-name)
-              set))))
+                 find-friends
+                 (map get-user-by-id)
+                 (apply vector)
+                 (map :real-name)
+                 set))))
 
 (comment
-(expect "Jhon"
-        (with-redefs [conn (create-empty-im-memory-db)]
-          (do
-            (add-user "Jhon" "jhon@coolmail.com")
-            (->> (find-wish-user-id "jhon@coolmail.com")
-              get-user-by-id
-              :real-name))))
- )
+  (expect "Jhon"
+          (with-redefs [conn (create-empty-im-memory-db)]
+            (do
+              (add-user "Jhon" "jhon@coolmail.com")
+              (->> (find-wish-user-id "jhon@coolmail.com")
+                   get-user-by-id
+                   :real-name))))
+  )

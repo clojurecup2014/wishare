@@ -47,17 +47,17 @@
   "Вернет все поля подарка по его id"
   (let [fields [:title :creator :created :modified :description :url :photo-url]]
     (zipmap fields
-          (first (d/q '[:find ?title ?creator ?created ?modified ?description ?url ?photo-url
-                :in $ ?w
-                :where [?w :wish/title ?title]
-                [?w :wish/user-created ?creator]
-                [?w :wish/date-created ?created]
-                [?w :wish/date-modified ?modified]
-                [?w :wish/description ?description]
-                [?w :wish/url ?url]
-                [?w :wish/photo-url ?photo-url]]
-              (d/db conn)
-              wish-id)))))
+            (first (d/q '[:find ?title ?creator ?created ?modified ?description ?url ?photo-url
+                          :in $ ?w
+                          :where [?w :wish/title ?title]
+                          [?w :wish/user-created ?creator]
+                          [?w :wish/date-created ?created]
+                          [?w :wish/date-modified ?modified]
+                          [?w :wish/description ?description]
+                          [?w :wish/url ?url]
+                          [?w :wish/photo-url ?photo-url]]
+                        (d/db conn)
+                        wish-id)))))
 
 
 (defn find-wish-for-user [user-login]
@@ -208,7 +208,7 @@
 
 (defn find-all-users []
   (d/q '[:find ?email ?real-name :where     [_ :user/login ?email]
-                                            [_ :user/real-name ?real-name]]
+         [_ :user/real-name ?real-name]]
        (d/db conn)))
 
 
@@ -262,17 +262,14 @@
                        (d/db conn)
                        user-id)
         iniciators  (d/q '[:find ?iniciator
-                          :in $ ?user-id
-                          :where [_ :friendship/iniciator ?iniciator]
-                          [_ :friendship/acceptor ?user-id]]
-                        (d/db conn)
-                        user-id)]
-    ;;(distinct (into acceptors iniciators)))
-    ;;(into acceptors iniciators))
-    ;;acceptors)
-    ;;iniciators)
+                           :in $ ?user-id
+                           :where [_ :friendship/iniciator ?iniciator]
+                           [_ :friendship/acceptor ?user-id]]
+                         (d/db conn)
+                         user-id)]
+
     (distinct (into (apply concat iniciators) (apply concat acceptors))))
-    ;;#{1,2})
+
   )
 
 
