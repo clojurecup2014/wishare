@@ -149,35 +149,47 @@
 
 ;; Wish comment
 {:db/id #db/id[:db.part/db]
-  :db/ident :wishComment/body
+  :db/ident :wish-comment/body
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "A wish comment body"
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wishComment/timestamp
+  :db/ident :wish-comment/timestamp
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A wish comment timestamp"
   :db.install/_attribute :db.part/db}
 
+  {:db/id #db/id[:db.part/db]
+  :db/ident :wish-comment/wish
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
+  :db/ident :wish-comment/author
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+
 ;; Wish status
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wishUserStatus/user
+  :db/ident :wish-user-status/user
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wishUserStatus/wish
+  :db/ident :wish-user-status/wish
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wishUserStatus/status
+  :db/ident :wish-user-status/status
   :db/valueType :db.type/bigint
   :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}]

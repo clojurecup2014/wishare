@@ -75,8 +75,7 @@
                       :wish/user (find-wish-user-id user-login)
                       :wish/user-created (find-wish-user-id user-created-login)
                       :wish/date-created (java.util.Date.)
-                      :wish/date-modified (java.util.Date.)
-                      }]))
+                      :wish/date-modified (java.util.Date.)}]))
 
 ;; ----- Friendship -----
 
@@ -84,25 +83,54 @@
   "Вернет всеъ друзей пользователя"
   ())
 
-(defn add-firendship-request
+(defn add-firendship-request [user-sender-id user-receiver-id message]
   "Friendship request creation"
-  [user-sender user-receiver message])
+  @(d/transact conn [{:db/id (d/tempid :db.part/user)
+                      :friendship-request/sender user-sender-id
+                      :friendship-request/receiver user-receiver-id
+                      :friendship-request/message message}]))
 
 (defn cancel-firendship-request
   "Canceling friendship request"
-  ([user-sender user-receiver] ())
+  ([user-sender-id user-receiver-id] ())
   ([friendship-request-id]()))
 
 (defn accept-friendship-request
   "Accept friendship. Besause it's a magic!"
-  ([user-sender user-receiver]()) ([friendship-request-id]()))
+  ([user-sender-id user-receiver-id]()) ([friendship-request-id]()))
 
 
 ;; ----- Comment -----
 
-(defn add-wish-comment
+(defn add-wish-comment [wish-id author-id body]
   "Adding comment"
-  [wish-id body])
+  @(d/transact conn [{:db/id (d/tempid :db.part/user)
+                      :wish-comment/author author-id
+                      :wish-comment/wish wish-id
+                      :wish-comment/timestamp (java.util.Date.)
+                      :wish-comment/body body}]))
+
+(defn get-comment-by-id [comment-id]
+  "Отдает все данные по комменту по его id."
+  (let [fields [:real-name :login :avatar-url :date-created :date-last-login :date-modified]]
+    (zipmap fields
+            (first (d/q '[:find ?author ?wish ?timestamp ?body
+                          :in $ ?u
+                          :where [?u :user/author ?author]
+                          [?u :user/wish ?wish]
+                          [?u :user/timestamp ?timestamp]
+                          [?u :user/body ?body]])))))
+
+(defn find-comments-for-wish [wish-id]
+  "Вернет список комментариев к подарку в виде списка id"
+  (let [comments (d/q '[:find ?c
+                        :in $ ?wish-id
+                        :where [?c :wish-comment/wish ?wish-id]]
+                      (d/db conn)
+                      wish-id)]
+    (map (partial apply get-wish-by-id) comments)))
+
+
 (defn remove-comment
   "Remove comment"
   [comment-id]())
@@ -110,14 +138,30 @@
 
 ;; ----- Status -----
 
-
-(defn set-wish-user-status
+(defn set-wish-user-status [wish-id user-id status]
   "Set wish user status"
-  [wish user-login status])
+  @(d/transact conn [{:db/id (d/tempid :db.part/user)
+                      :wish-user-status/user user-id
+                      :wish-user-status/wish wish-id
+                      :wish-user-status/timestamp (java.util.Date.)
+                      :wish-user-status/status status}]))
+
+(defn пуе-user-status-for-wish [wish-id user-id]
+  "Вернет статус пдарка для юзера"
+  (let [comments (d/q '[:find ?c
+                        :in $ ?wish-id
+                        :where [?u :wish-user-status/wish ?wish-id]
+                        [?u :wish-user-status/user ?user-id]]
+                      (d/db conn)
+                      wish-id)]
+    (map (partial apply get-wish-by-id) comments)))
+
+
 
 (defn clear-wish-user-status
   "Clear wish status user"
-  [wish user-login])
+  [wish user-login]
+  ())
 
 
 ;; -----
