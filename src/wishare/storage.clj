@@ -38,6 +38,7 @@
 
 
 (defn get-wish-by-id [wish-id]
+  "Вернет все поля подарка по его id"
   (let [fields [:title :creator :created :modified :description :url :photo-url]]
     (zipmap fields
           (first (d/q '[:find ?title ?creator ?created ?modified ?description ?url ?photo-url
@@ -53,8 +54,8 @@
               wish-id)))))
 
 
-
 (defn find-wish-for-user [user-login]
+  "Вернет список подарков пользователя в виде списка id"
   (let [wishes (d/q '[:find ?w
                       :in $ ?user-login
                       :where [?wish-user :user/login ?user-login]
@@ -65,8 +66,8 @@
 
 
 (defn add-wish [user-login user-created-login title description & {:keys [url photo-url] :or {url "" photo-url ""}}]
-  @(d/transact conn [
-                     {:db/id (d/tempid :db.part/user)
+  "Добавление подарка"
+  @(d/transact conn [{:db/id (d/tempid :db.part/user)
                       :wish/description description
                       :wish/url url
                       :wish/photo-url photo-url
