@@ -86,3 +86,22 @@
             (add-user "Jhon" "jhon@coolmail.com")
             (->> (get-user-by-id "jhon@coolmail.com")
                  :real-name))))
+
+
+(expect #{"message"}
+        (with-redefs [conn (create-empty-im-memory-db)]
+          (do
+            (add-user "Jhon" "Jhon")
+            (add-user "Steve" "Steve")
+            (add-friend "Jhon" "Steve")
+
+            (add-timeline "Steve" "message")
+            (add-timeline "Jhon" "message2")
+
+            ( ->> (find-user-timeline "Jhon")
+              (map get-timeline-record-by-id)
+              doall
+              (map :text)
+              set
+              )
+            )))
