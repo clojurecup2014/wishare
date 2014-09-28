@@ -118,7 +118,19 @@
                :timestamp "11-01-1991"}]
    }))
 
-(defn wish-item-submit [request])
+(defn wish-item-submit [{{id :id
+                          title :title
+                          user :user
+                          description :description
+                          url :url
+                          photo-url :photo-url} :params
+                         :as request}]
+  (let [user-created (get-current-user request)
+        to-user (storage/get-user-by-id user)]
+
+    ;; TODO
+
+    ))
 
 (defn wish-item-create [request])
 
