@@ -5,7 +5,7 @@
 
 (defn get-request-user-id [request]
   1
-  ; TODO
+  ;; TODO get user from session
   )
 
 
@@ -26,12 +26,12 @@
   (let [user (get-current-user request)
         wishes (storage/find-own-wish-for-user (:username user))
         timeline (storage/find-user-own-timeline (:username user))]
-    {:readonly? read-only
-     :header user
-     :dashboard {:mode :wishlist
-                 :my-own? true
-                 :items wishes}
-     :timeline timeline})
+    (pr-str {:readonly? read-only
+             :header user
+             :dashboard {:mode :wishlist
+                         :my-own? true
+                         :items wishes}
+             :timeline timeline}))
   )
 
 
@@ -39,12 +39,12 @@
   (let [user (get-current-user request)
         friends (storage/find-all-user-friends (:username user))
         timeline (storage/find-user-own-timeline (:username user))]
-    {:readonly? false
-     :header user
-     :dashboard {:mode :friends
-                 :my-own? true
-                 :items friends}
-     :timeline timeline}
+    (pr-str {:readonly? false
+             :header user
+             :dashboard {:mode :friends
+                         :my-own? true
+                         :items friends}
+             :timeline timeline})
     ))
 
 
@@ -58,13 +58,30 @@
                       (:username other-user))
               timeline (storage/find-user-timeline
                         (:username other-user))]
-          {:readonly? false
-           :header other-user
-           :dashboard {:mode :wishlist
-                       :my-own? false
-                       :items wishes}
-           :timeline timeline})
+          (pr-str {:readonly? false
+                   :header other-user
+                   :dashboard {:mode :wishlist
+                               :my-own? false
+                               :items wishes}
+                   :timeline timeline}))
         (my-wishlist (assoc request :read-only true))))))
+
+(defn user-friends-mock [{{username :username} :params :as request}]
+  (let [is-friend
+        (is-friends? (get-current-user request) (storage/get-user-by-id username))
+        ]
+    (pr-str {:readonly? (not is-friend)
+             :header {:login "joe_the_hacker"
+                      :real-name "Joe"
+                      :avatar-url "/img/noavatar.png"}
+             :dashboard {:mode :friends
+                         :my-own? (not is-friend)
+                         :items [{:login "jd"
+                                  :real-name "John Dowe"
+                                  :id 33
+                                  :avatar-url "http://img.jpg"}]}
+             :timeline [{:title "Wished the bike"
+                         :timestamp "5 min"}]})))
 
 
 (defn user-friends [{{username :username} :params :as request}]
@@ -72,16 +89,16 @@
         other-user (storage/get-user-by-id username)]
     (if (= (:username current-user) username)
       (redirect "friends")
-      {:read-only? false
-       :header other-user
-       :dashboard {:mode :friends
-                   :my-own? false
-                   :items (storage/find-all-user-friends username)}
-       :timeline (storage/find-user-timeline username)})))
+      (pr-str {:read-only? false
+               :header other-user
+               :dashboard {:mode :friends
+                           :my-own? false
+                           :items (storage/find-all-user-friends username)}
+               :timeline (storage/find-user-timeline username)}))))
 
 
-(defn wish-item [request]
-  {:id 123
+(defn wish-item-mock [request]
+  (pr-str {:id 123
    :title "iPhone6"
    :description "World the most wanted cell phone!!!"
    :url "/url"
@@ -99,7 +116,7 @@
                :username "joe"
                :body "Hello world!"
                :timestamp "11-01-1991"}]
-   })
+   }))
 
 (defn wish-item-submit [request])
 
