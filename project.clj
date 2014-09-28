@@ -41,7 +41,8 @@
              :cljs {:plugins [[lein-cljsbuild "1.0.3"]]
                     :dependencies [[com.facebook/react "0.11.1"]
                                    [quiescent "0.1.4"]
-                                   [sablono "0.2.21"]]
+                                   [sablono "0.2.21"]
+                                   [cljs-ajax "0.3.0"]]
                     :cljsbuild
                     {:builds {:dev
                               {:source-paths ["src-cljs"]

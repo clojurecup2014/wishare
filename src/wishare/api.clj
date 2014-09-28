@@ -3,41 +3,39 @@
             [ring.util.response :refer [redirect]]))
 
 
-(defn get-request-user-id [request]
-  1
-  ;; TODO get user from session
-  )
+(defn get-request-user-id
+  [request]
+  (get-in request [:cookies :twitter-id]))
 
 
-(defn is-friends? [user1 user2]
-  "Друзья ли первый и второй пользователь"
-    (contains?
-     (:username user2)
-     (map :username (storage/find-all-user-friends user1))))
+(defn is-friends?
+  [user1 user2]
+  (contains?
+   (:username user2)
+   (map :username (storage/find-all-user-friends user1))))
 
 
-(defn get-current-user [request]
-  "Достаем текущего пользователя из реквеста"
+(defn get-current-user
+  [request]
   (let [user-id (get-request-user-id request)]
-    (storage/get-user-by-id user-id)))
+    (when-not (nil? user-id)
+      (storage/get-user-by-id user-id))))
 
 
-(defn my-wishlist [{:keys [read-only]
-                    :or {read-only false}
-                    :as request}]
+(defn my-wishlist
+  [request]
   (let [user (get-current-user request)
         wishes (storage/find-own-wish-for-user (:username user))
         timeline (storage/find-user-own-timeline (:username user))]
-    (pr-str {:readonly? read-only
+    (pr-str {:mode :my-own
              :header user
-             :dashboard {:mode :wishlist
-                         :my-own? true
+             :dashboard {:active :wishlist
                          :items wishes}
-             :timeline timeline}))
-  )
+             :timeline timeline})))
 
 
-(defn my-friends [request]
+(defn my-friends
+  [request]
   (let [user (get-current-user request)
         friends (storage/find-all-user-friends (:username user))
         timeline (storage/find-user-own-timeline (:username user))]
@@ -46,11 +44,11 @@
              :dashboard {:mode :friends
                          :my-own? true
                          :items friends}
-             :timeline timeline})
-    ))
+             :timeline timeline})))
 
 
-(defn user-wishlist [{{username :username} :params :as request} ]
+(defn user-wishlist
+  [{{username :username} :params :as request}]
   (let [current-user (get-current-user request)
         other-user (storage/get-user-by-id username)]
     (if (= (:username current-user) username)
@@ -68,9 +66,12 @@
                    :timeline timeline}))
         (my-wishlist (assoc request :read-only true))))))
 
-(defn user-friends-mock [{{username :username} :params :as request}]
+
+(defn user-friends-mock
+  [{{username :username} :params :as request}]
   (let [is-friend
-        (is-friends? (get-current-user request) (storage/get-user-by-id username))
+        (is-friends? (get-current-user request)
+                     (storage/get-user-by-id username))
         ]
     (pr-str {:readonly? (not is-friend)
              :header {:login "joe_the_hacker"
@@ -86,7 +87,8 @@
                          :timestamp "5 min"}]})))
 
 
-(defn user-friends [{{username :username} :params :as request}]
+(defn user-friends
+  [{{username :username} :params :as request}]
   (let [current-user (get-current-user request)
         other-user (storage/get-user-by-id username)]
     (if (= (:username current-user) username)
@@ -99,36 +101,34 @@
                :timeline (storage/find-user-timeline username)}))))
 
 
-(defn wish-item-mock [request]
+(defn wish-item-mock
+  [request]
   (pr-str {:id 123
-   :title "iPhone6"
-   :description "World the most wanted cell phone!!!"
-   :url "/url"
-   :photo-url "/img/nophoto.png"
-   :user-status :in-thought
-   :comments [{:id 3534
-               :username "joe"
-               :body "Hello world!"
-               :timestamp "01-01-1991"}
-              {:id 2355
-               :username "black"
-               :body "Hello world!!!"
-               :timestamp "13-01-1991"}
-              {:id 3231
-               :username "joe"
-               :body "Hello world!"
-               :timestamp "11-01-1991"}]
-   }))
+           :title "iPhone6"
+           :description "World the most wanted cell phone!!!"
+           :url "/url"
+           :photo-url "/img/nophoto.png"
+           :user-status :in-thought
+           :comments [{:id 3534
+                       :username "joe"
+                       :body "Hello world!"
+                       :timestamp "01-01-1991"}
+                      {:id 2355
+                       :username "black"
+                       :body "Hello world!!!"
+                       :timestamp "13-01-1991"}
+                      {:id 3231
+                       :username "joe"
+                       :body "Hello world!"
+                       :timestamp "11-01-1991"}]}))
 
-(defn wish-item-submit [{{id :id
-                          title :title
-                          user :user
-                          description :description
-                          url :url
-                          photo-url :photo-url} :params
-                         :as request}]
+
+(defn wish-item-submit
+  [{{:keys [id title user description url photo-url]} :params
+    :as request}]
   (let [user-created (get-current-user request)
         to-user (storage/get-user-by-id user)]
+
     (storage/add-wish user-created to-user title description url photo-url)))
 
 
@@ -149,8 +149,13 @@
   (let [user (get-current-user request)]
     (storage/add-wish-comment wish user body)))
 
-(defn wish-status-submit [request])
 
-(defn add-friend [request])
+(defn wish-status-submit
+  [request])
 
-(defn remove-friend [request])
+(defn add-friend
+  [request])
+
+
+(defn remove-friend
+  [request])
