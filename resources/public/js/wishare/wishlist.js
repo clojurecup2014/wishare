@@ -8,7 +8,7 @@ goog.require('quiescent');
 /**
 * Wishlist item prototype
 */
-wishare.wishlist.Wish = (function Wish(extension){return quiescent.component.call(null,(function (data){var vec__11242 = extension.call(null,data);var map__11243 = cljs.core.nth.call(null,vec__11242,(0),null);var map__11243__$1 = ((cljs.core.seq_QMARK_.call(null,map__11243))?cljs.core.apply.call(null,cljs.core.hash_map,map__11243):map__11243);var image = cljs.core.get.call(null,map__11243__$1,new cljs.core.Keyword(null,"image","image",-58725096));var title = cljs.core.get.call(null,map__11243__$1,new cljs.core.Keyword(null,"title","title",636505583));var id = cljs.core.get.call(null,map__11243__$1,new cljs.core.Keyword(null,"id","id",-1388402092));var elems = cljs.core.nthnext.call(null,vec__11242,(1));return cljs.core.apply.call(null,quiescent.dom.li,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"list-group-item wish-item"], null),quiescent.dom.img.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"className","className",-1983287057),"img-thumbnail photo image32x32",new cljs.core.Keyword(null,"src","src",-1651076051),(function (){var or__3639__auto__ = image;if(cljs.core.truth_(or__3639__auto__))
+wishare.wishlist.Wish = (function Wish(extension){return quiescent.component.call(null,(function (data){var vec__12381 = extension.call(null,data);var map__12382 = cljs.core.nth.call(null,vec__12381,(0),null);var map__12382__$1 = ((cljs.core.seq_QMARK_.call(null,map__12382))?cljs.core.apply.call(null,cljs.core.hash_map,map__12382):map__12382);var image = cljs.core.get.call(null,map__12382__$1,new cljs.core.Keyword(null,"image","image",-58725096));var title = cljs.core.get.call(null,map__12382__$1,new cljs.core.Keyword(null,"title","title",636505583));var id = cljs.core.get.call(null,map__12382__$1,new cljs.core.Keyword(null,"id","id",-1388402092));var elems = cljs.core.nthnext.call(null,vec__12381,(1));return cljs.core.apply.call(null,quiescent.dom.li,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"list-group-item wish-item"], null),quiescent.dom.img.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"className","className",-1983287057),"img-thumbnail photo image32x32",new cljs.core.Keyword(null,"src","src",-1651076051),(function (){var or__3639__auto__ = image;if(cljs.core.truth_(or__3639__auto__))
 {return or__3639__auto__;
 } else
 {return "/img/nophoto.png";
@@ -37,7 +37,19 @@ wishare.wishlist.FriendWish = wishare.wishlist.Wish.call(null,(function (data){r
 /**
 * Wishlist
 */
-wishare.wishlist.Wishlist = quiescent.component.call(null,(function (heading,readonly_QMARK_,p__11244){var map__11245 = p__11244;var map__11245__$1 = ((cljs.core.seq_QMARK_.call(null,map__11245))?cljs.core.apply.call(null,cljs.core.hash_map,map__11245):map__11245);var my_own_QMARK_ = cljs.core.get.call(null,map__11245__$1,new cljs.core.Keyword(null,"my-own?","my-own?",1784340277),false);var items = cljs.core.get.call(null,map__11245__$1,new cljs.core.Keyword(null,"items","items",1031954938));return quiescent.dom.div.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"panel panel-default wishlist"], null),heading,cljs.core.apply.call(null,cljs.core.partial.call(null,quiescent.dom.ul,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"wishlist list-group"], null),(cljs.core.truth_(readonly_QMARK_)?null:(cljs.core.truth_(my_own_QMARK_)?quiescent.dom.li.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"list-group-item add-wish"], null),quiescent.dom.button.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"className","className",-1983287057),"btn btn-default btn-block add-wish"], null),"Add Wish Item")):null))),(function (){var item = (cljs.core.truth_(readonly_QMARK_)?wishare.wishlist.ROWish:(cljs.core.truth_(my_own_QMARK_)?wishare.wishlist.MyWish:wishare.wishlist.FriendWish
-));return cljs.core.map.call(null,item,items);
+wishare.wishlist.Wishlist = quiescent.component.call(null,(function (mode,heading,items){return quiescent.dom.div.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"panel panel-default wishlist"], null),heading,cljs.core.apply.call(null,cljs.core.partial.call(null,quiescent.dom.ul,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"wishlist list-group"], null),((cljs.core._EQ_.call(null,mode,new cljs.core.Keyword(null,"my-own","my-own",-1841146167)))?quiescent.dom.li.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"className","className",-1983287057),"list-group-item add-wish"], null),quiescent.dom.button.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"className","className",-1983287057),"btn btn-default btn-block add-wish"], null),"Add Wish Item")):null)),(function (){var item = (function (){var G__12383 = (((mode instanceof cljs.core.Keyword))?mode.fqn:null);switch (G__12383) {
+case "my-own":
+return wishare.wishlist.MyWish;
+
+break;
+case "readonly":
+return wishare.wishlist.ROWish;
+
+break;
+default:
+return wishare.wishlist.FriendWish;
+
+}
+})();return cljs.core.map.call(null,item,items);
 })()));
 }));
