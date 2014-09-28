@@ -1,5 +1,6 @@
 (ns wishare.storage
   (:require [datomic.api :as d]
+
             [carica.core :refer [config]]))
 
 (def uri (config :db :uri))
@@ -19,14 +20,17 @@
                       :user/login email}]))
 
 
-(defn add-wish [user-login user-created-login title description url]
+(defn add-wish [user-login user-created-login title description & {:keys [url photo-url] :or {url "" photo-url ""}}]
   @(d/transact conn [
                      {:db/id (d/tempid :db.part/user)
                       :wish/description description
                       :wish/url url
+                      :wish/photo-url photo-url
                       :wish/title title
                       :wish/user (find-wish-user-id user-login)
                       :wish/user-created (find-wish-user-id user-created-login)
+                      :wish/date-created (java.util.Date.)
+                      :wish/date-modified (java.util.Date.)
                       }]))
 
 
@@ -78,14 +82,32 @@
 (defn find-all-user-friends [user-login])
 
 
+
+
+(defn get-wish-by-id [wish-id]
+  (let [fields [:title :creator :created :modified :description :url :photo-url]]
+    ;;(println wish-id)
+    (zipmap fields
+          (first (d/q '[:find ?title ?creator ?created ?modified ?description ?url ?photo-url
+                :in $ ?w
+                :where [?w :wish/title ?title]
+                [?w :wish/user-created ?creator]
+                [?w :wish/date-created ?created]
+                [?w :wish/date-modified ?modified]
+                [?w :wish/description ?description]
+                [?w :wish/url ?url]
+                [?w :wish/photo-url ?photo-url]]
+              (d/db conn)
+              wish-id)))))
+
+
+
 (defn find-wish-for-user [user-login]
-  (d/q '[:find ?wish-title
-         :in $ ?user-login
-         :where [?wish-user :user/login ?user-login]
-                [?w :wish/user ?wish-user]
-                [?w :wish/title ?wish-title]]
-       (d/db conn)
-       user-login))
-
-
+  (let [wishes (d/q '[:find ?w
+                      :in $ ?user-login
+                      :where [?wish-user :user/login ?user-login]
+                      [?w :wish/user ?wish-user]]
+                    (d/db conn)
+                    user-login)]
+    (map (partial apply get-wish-by-id) wishes)))
 

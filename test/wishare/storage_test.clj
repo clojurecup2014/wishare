@@ -20,24 +20,26 @@
           (find-all-users))))
 
 ;;Adding one user with one wish shoould allow us to fild that wish for that user
-(expect #{["Bike"]}
+(expect #{"Bike"}
         (with-redefs [conn (create-empty-im-memory-db)]
         (do
           (add-user "Jhon" "jhon@coolmail.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" "http://mysite.com")
-          (find-wish-for-user "jhon@coolmail.com")
-          )))
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+          (->> (find-wish-for-user "jhon@coolmail.com")
+               (map :title)
+               set
+               ))))
 
 
 ;; Adding multiple users and wishes should allow us to find the pets for a particular user
-(expect #{["Kitty"] ["Knife"]}
+(expect #{"Knife" "Kitty"}
         (with-redefs [conn (create-empty-im-memory-db)]
         (do
           (add-user "Jhon" "jhon@coolmail.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" "http://mysite.com")
-          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" "http://amazon.com/cool-spiderman-pen")
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
           (add-user "Paul" "paul@maol.com")
-          (add-wish "paul@maol.com" "paul@maol.com" "Kitty" "Fliffy flyffy" "http://howtocookacat.com")
-          (add-wish "paul@maol.com" "paul@maol.com" "Knife" "The big one" "http://howtocookacat.com")
-          (find-wish-for-user "paul@maol.com"))))
+          (add-wish "paul@maol.com" "paul@maol.com" "Kitty" "Fliffy flyffy" :url "http://howtocookacat.com")
+          (add-wish "paul@maol.com" "paul@maol.com" "Knife" "The big one" :url "http://howtocookacat.com")
+          (set (map :title (find-wish-for-user "paul@maol.com") ) ))))
 

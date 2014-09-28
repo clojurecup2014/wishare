@@ -24,7 +24,7 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :user/date_last_login
+  :db/ident :user/date-last-login
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A user last login date"
@@ -76,14 +76,14 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wish/date_created
+  :db/ident :wish/date-created
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A wish creation date"
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :wish/date_modified
+  :db/ident :wish/date-modified
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A wish modified date"
