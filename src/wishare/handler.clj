@@ -29,6 +29,7 @@
   (POST "friends/remove/:username" [] api/remove-friend)
   (GET "/friends/:username" [] api/user-friends-mock)
   (POST "/item/:id/comment" [] api/wish-comment-create)
+  (POST "/item/submit-status"[] api/wish-status-submit)
   (GET "/item/:id" [] api/wish-item-mock)
   (POST "item/:id" [] api/wish-item-submit)
   (POST "item" [] api/wish-item-create)

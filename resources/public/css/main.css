@@ -49,3 +49,12 @@ li.item-status {
 .friend button {
   margin-top: 23px;
 }
+
+.navbar-header {
+  min-height: 90px;
+}
+
+.navbar-brand img {
+  width: 64px;
+  height: 64px;
+}
