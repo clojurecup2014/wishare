@@ -26,7 +26,7 @@
 
 
 (q/defcomponent FriendList
-  [items heading mode]
+  [items heading mode state]
   (d/div
    {:className "panel panel-default friends"}
    heading

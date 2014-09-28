@@ -23,7 +23,6 @@
                        (swap! state merge
                               (cljs.reader/read-string res))))})))
 
-
 ;; -----------------------------------------------------------------------------
 
 (defn dashboard
@@ -39,7 +38,7 @@
                                    :role"tablist"}
                              (for [tab tabs
                                    :let [{:keys [title modes route]} (config tab)]
-                                   :when (modes mode)]
+                                   :when (and (modes mode) (not (nil? route)))]
                                (if (= tab active)
                                  (d/li {:className "active"} (d/a {} title))
                                  (d/li {} (d/a {:onClick
@@ -50,7 +49,7 @@
              available-modes (get-in config [active :modes])]
          (if (available-modes mode)
            (d/div {:className "col-md-8 dashboard"}
-                  (comp items heading mode))
+                  (comp items heading mode state))
            (throw (str "Tab " active " is not available in mode " mode "!"))))))))
 
 
@@ -95,6 +94,13 @@
                           :comp wishlist/Wishlist
                           :title "Wishlist"
                           :modes #{:my-own :readonly :friend}}
+
+               ;; :wish     {:comp wishlist/Wishlist
+               ;;            :modes #{:my-own :friend}}
+
+               :add-wish {:comp wishlist/AddWish
+                          :modes #{:my-own}}
+
                :friends {:route "friends"
                          :comp friends/FriendList
                          :title "Friends"
@@ -104,5 +110,15 @@
 
 (add-watch state ::render
            (fn [_ atm _ data]
-             (q/render (Page data)
-                       (.getElementById js/document "root"))))
+             (let [submit (data :submit)]
+               (if (nil? submit)
+                 ;; simple rendering
+                 (q/render (Page data)
+                           (.getElementById js/document "root"))
+                 ;; submission
+                 (let [{:keys [route data]} submit]
+                   (POST (str "/api/" route)
+                         {:params data
+                          :handler (fn [res]
+                                     (swap! state merge
+                                            (cljs.reader/read-string res)))}))))))

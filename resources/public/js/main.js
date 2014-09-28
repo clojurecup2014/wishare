@@ -47013,15 +47013,18 @@ goog.require("quiescent.dom");
 goog.require("quiescent.dom");
 goog.require("quiescent");
 goog.require("quiescent");
+wishare.wishlist.add_wish_BANG_ = function add_wish_BANG_(state) {
+  return cljs.core.swap_BANG_.call(null, state, cljs.core.assoc, new cljs.core.Keyword(null, "dashboard", "dashboard", -631747508), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "active", "active", 1895962068), new cljs.core.Keyword(null, "add-wish", "add-wish", 397371801)], null));
+};
 wishare.wishlist.Wish = function Wish(extension) {
   return quiescent.component.call(null, function(data) {
-    var vec__6091 = extension.call(null, data);
-    var map__6092 = cljs.core.nth.call(null, vec__6091, 0, null);
-    var map__6092__$1 = cljs.core.seq_QMARK_.call(null, map__6092) ? cljs.core.apply.call(null, cljs.core.hash_map, map__6092) : map__6092;
-    var image = cljs.core.get.call(null, map__6092__$1, new cljs.core.Keyword(null, "image", "image", -58725096));
-    var title = cljs.core.get.call(null, map__6092__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
-    var id = cljs.core.get.call(null, map__6092__$1, new cljs.core.Keyword(null, "id", "id", -1388402092));
-    var elems = cljs.core.nthnext.call(null, vec__6091, 1);
+    var vec__7253 = extension.call(null, data);
+    var map__7254 = cljs.core.nth.call(null, vec__7253, 0, null);
+    var map__7254__$1 = cljs.core.seq_QMARK_.call(null, map__7254) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7254) : map__7254;
+    var image = cljs.core.get.call(null, map__7254__$1, new cljs.core.Keyword(null, "image", "image", -58725096));
+    var title = cljs.core.get.call(null, map__7254__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
+    var id = cljs.core.get.call(null, map__7254__$1, new cljs.core.Keyword(null, "id", "id", -1388402092));
+    var elems = cljs.core.nthnext.call(null, vec__7253, 1);
     return cljs.core.apply.call(null, quiescent.dom.li, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "list-group-item wish-item"], null), quiescent.dom.img.call(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "className", "className", -1983287057), "img-thumbnail photo image32x32", new cljs.core.Keyword(null, "src", "src", -1651076051), function() {
       var or__3639__auto__ = image;
       if (cljs.core.truth_(or__3639__auto__)) {
@@ -47048,11 +47051,11 @@ wishare.wishlist.FriendWish = function() {
     return quiescent.dom.span.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "className", "className", -1983287057), "badge gifted " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(cls) + cljs.core.str.cljs$core$IFn$_invoke$arity$1(cljs.core.truth_(badges.call(null, id)) ? " alert-success" : ""), new cljs.core.Keyword(null, "rel", "rel", 1378823488), "tooltip", new cljs.core.Keyword(null, "data-toggle", "data-toggle", 436966687), "tooltip", new cljs.core.Keyword(null, 
     "title", "title", 636505583), title], null), quiescent.dom.span.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "glyphicon glyphicon-" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(icon)], null)));
   };
-  return wishare.wishlist.Wish.call(null, function(p__6093) {
-    var map__6094 = p__6093;
-    var map__6094__$1 = cljs.core.seq_QMARK_.call(null, map__6094) ? cljs.core.apply.call(null, cljs.core.hash_map, map__6094) : map__6094;
-    var data = map__6094__$1;
-    var badges = cljs.core.get.call(null, map__6094__$1, new cljs.core.Keyword(null, "badges", "badges", -288609067));
+  return wishare.wishlist.Wish.call(null, function(p__7255) {
+    var map__7256 = p__7255;
+    var map__7256__$1 = cljs.core.seq_QMARK_.call(null, map__7256) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7256) : map__7256;
+    var data = map__7256__$1;
+    var badges = cljs.core.get.call(null, map__7256__$1, new cljs.core.Keyword(null, "badges", "badges", -288609067));
     return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [data, function() {
       var b = function() {
         var or__3639__auto__ = badges;
@@ -47067,12 +47070,14 @@ wishare.wishlist.FriendWish = function() {
     }()], null);
   });
 }();
-wishare.wishlist.Wishlist = quiescent.component.call(null, function(items, heading, mode) {
+wishare.wishlist.Wishlist = quiescent.component.call(null, function(items, heading, mode, state) {
   return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "panel panel-default wishlist"], null), heading, cljs.core.apply.call(null, cljs.core.partial.call(null, quiescent.dom.ul, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "wishlist list-group"], null), cljs.core._EQ_.call(null, mode, new cljs.core.Keyword(null, "my-own", "my-own", -1841146167)) ? 
-  quiescent.dom.li.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "list-group-item add-wish"], null), quiescent.dom.button.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "type", "type", 1174270348), "button", new cljs.core.Keyword(null, "className", "className", -1983287057), "btn btn-default btn-block add-wish"], null), "Add Wish Item")) : null), function() {
+  quiescent.dom.li.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "list-group-item add-wish"], null), quiescent.dom.button.call(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "type", "type", 1174270348), "button", new cljs.core.Keyword(null, "className", "className", -1983287057), "btn btn-default btn-block add-wish", new cljs.core.Keyword(null, "onClick", "onClick", -1991238530), function() {
+    return wishare.wishlist.add_wish_BANG_.call(null, state);
+  }], null), "Add Wish Item")) : null), function() {
     var item = function() {
-      var G__6095 = mode instanceof cljs.core.Keyword ? mode.fqn : null;
-      switch(G__6095) {
+      var G__7257 = mode instanceof cljs.core.Keyword ? mode.fqn : null;
+      switch(G__7257) {
         case "my-own":
           return wishare.wishlist.MyWish;
           break;
@@ -47086,25 +47091,53 @@ wishare.wishlist.Wishlist = quiescent.component.call(null, function(items, headi
     return cljs.core.map.call(null, item, items);
   }()));
 });
+wishare.wishlist.AddWish = quiescent.component.call(null, function(p__7259, heading, mode, state) {
+  var map__7260 = p__7259;
+  var map__7260__$1 = cljs.core.seq_QMARK_.call(null, map__7260) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7260) : map__7260;
+  var photo_url = cljs.core.get.call(null, map__7260__$1, new cljs.core.Keyword(null, "photo-url", "photo-url", -1816449182));
+  var url = cljs.core.get.call(null, map__7260__$1, new cljs.core.Keyword(null, "url", "url", 276297046));
+  var description = cljs.core.get.call(null, map__7260__$1, new cljs.core.Keyword(null, "description", "description", -1428560544));
+  var title = cljs.core.get.call(null, map__7260__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
+  var id = cljs.core.get.call(null, map__7260__$1, new cljs.core.Keyword(null, "id", "id", -1388402092), null);
+  return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "panel panel-default edit-item"], null), heading, quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "panel-heading"], null), quiescent.dom.h2.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), 
+  "panel-title"], null), "Add/Edit a Wish")), quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "panel-body"], null), function() {
+    var labeled = function(map__7260, map__7260__$1, photo_url, url, description, title, id) {
+      return function labeled(label, placeholder, name, el, attrs) {
+        var id__$1 = "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(name) + "-input";
+        return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "form-group"], null), quiescent.dom.label.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "for", "for", -1323786319), id__$1], null), label), el.call(null, cljs.core.assoc.call(null, attrs, new cljs.core.Keyword(null, "className", "className", -1983287057), "form-control", new cljs.core.Keyword(null, "name", "name", 
+        1843675177), name, new cljs.core.Keyword(null, "id", "id", -1388402092), id__$1, new cljs.core.Keyword(null, "placeholder", "placeholder", -104873083), placeholder)));
+      };
+    }(map__7260, map__7260__$1, photo_url, url, description, title, id);
+    return quiescent.dom.form.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "role", "role", -736691072), "form", new cljs.core.Keyword(null, "id", "id", -1388402092), "add-wish-form"], null), labeled.call(null, "Title", "Enter title", "title", quiescent.dom.input, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "type", "type", 1174270348), "text", new cljs.core.Keyword(null, "required", "required", 1807647006), true], null)), labeled.call(null, 
+    "Description", "Enter description", "description", quiescent.dom.textarea, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "row", "row", -570139521), 3, new cljs.core.Keyword(null, "required", "required", 1807647006), true], null)), labeled.call(null, "URL", "Enter URL", "url", quiescent.dom.input, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "type", "type", 1174270348), "url"], null)), labeled.call(null, "Photo URL", "Enter URL for photo", "photo", 
+    quiescent.dom.input, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "type", "type", 1174270348), "url"], null)), quiescent.dom.input.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "type", "type", 1174270348), "button", new cljs.core.Keyword(null, "className", "className", -1983287057), "btn btn-primary", new cljs.core.Keyword(null, "value", "value", 305978217), "Submit", new cljs.core.Keyword(null, "onClick", "onClick", -1991238530), 
+    function(map__7260, map__7260__$1, photo_url, url, description, title, id) {
+      return function() {
+        var data = new FormData(document.getElementById("add-wish-form"));
+        return cljs.core.swap_BANG_.call(null, state, cljs.core.assoc, new cljs.core.Keyword(null, "submit", "submit", -49315317), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "route", "route", 329891309), id == null ? "item" : "item/" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(id), new cljs.core.Keyword(null, "data", "data", -232669377), data], null));
+      };
+    }(map__7260, map__7260__$1, photo_url, url, description, title, id)], null)));
+  }()));
+});
 goog.provide("wishare.friends");
 goog.require("cljs.core");
 goog.require("quiescent.dom");
 goog.require("quiescent.dom");
 goog.require("quiescent");
 goog.require("quiescent");
-wishare.friends.Friend = quiescent.component.call(null, function(p__6099) {
-  var map__6100 = p__6099;
-  var map__6100__$1 = cljs.core.seq_QMARK_.call(null, map__6100) ? cljs.core.apply.call(null, cljs.core.hash_map, map__6100) : map__6100;
-  var to_me_QMARK_ = cljs.core.get.call(null, map__6100__$1, new cljs.core.Keyword(null, "to-me?", "to-me?", -2077154767), false);
-  var avatar_url = cljs.core.get.call(null, map__6100__$1, new cljs.core.Keyword(null, "avatar-url", "avatar-url", -1034626103));
-  var real_name = cljs.core.get.call(null, map__6100__$1, new cljs.core.Keyword(null, "real-name", "real-name", 301436383));
-  var login = cljs.core.get.call(null, map__6100__$1, new cljs.core.Keyword(null, "login", "login", 55217519));
-  var id = cljs.core.get.call(null, map__6100__$1, new cljs.core.Keyword(null, "id", "id", -1388402092));
-  var btn = function(map__6100, map__6100__$1, to_me_QMARK_, avatar_url, real_name, login, id) {
+wishare.friends.Friend = quiescent.component.call(null, function(p__7029) {
+  var map__7030 = p__7029;
+  var map__7030__$1 = cljs.core.seq_QMARK_.call(null, map__7030) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7030) : map__7030;
+  var to_me_QMARK_ = cljs.core.get.call(null, map__7030__$1, new cljs.core.Keyword(null, "to-me?", "to-me?", -2077154767), false);
+  var avatar_url = cljs.core.get.call(null, map__7030__$1, new cljs.core.Keyword(null, "avatar-url", "avatar-url", -1034626103));
+  var real_name = cljs.core.get.call(null, map__7030__$1, new cljs.core.Keyword(null, "real-name", "real-name", 301436383));
+  var login = cljs.core.get.call(null, map__7030__$1, new cljs.core.Keyword(null, "login", "login", 55217519));
+  var id = cljs.core.get.call(null, map__7030__$1, new cljs.core.Keyword(null, "id", "id", -1388402092));
+  var btn = function(map__7030, map__7030__$1, to_me_QMARK_, avatar_url, real_name, login, id) {
     return function btn(cls, text) {
       return quiescent.dom.button.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "badge btn btn-default " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(cls)], null), text);
     };
-  }(map__6100, map__6100__$1, to_me_QMARK_, avatar_url, real_name, login, id);
+  }(map__7030, map__7030__$1, to_me_QMARK_, avatar_url, real_name, login, id);
   return quiescent.dom.li.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "list-group-item friend"], null), quiescent.dom.a.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "href", "href", -793805698), "#"], null), quiescent.dom.img.call(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "className", "className", -1983287057), "img-thumbnail image64x64", new cljs.core.Keyword(null, 
   "src", "src", -1651076051), function() {
     var or__3639__auto__ = avatar_url;
@@ -47116,7 +47149,7 @@ wishare.friends.Friend = quiescent.component.call(null, function(p__6099) {
   }(), new cljs.core.Keyword(null, "alt", "alt", -3214426), "avatar"], null)), quiescent.dom.h4.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "style", "style", -496642736), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "display", "display", 242065432), "inline"], null)], null), real_name, quiescent.dom.small.call(null, cljs.core.PersistentArrayMap.EMPTY, ' aka "', login, '"'))), cljs.core.truth_(to_me_QMARK_) ? btn.call(null, "remove-friend", 
   "Remove from friends") : btn.call(null, "add-friend", "Add to friends"));
 });
-wishare.friends.FriendList = quiescent.component.call(null, function(items, heading, mode) {
+wishare.friends.FriendList = quiescent.component.call(null, function(items, heading, mode, state) {
   return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "panel panel-default friends"], null), heading, cljs.core._EQ_.call(null, mode, new cljs.core.Keyword(null, "read-only", "read-only", -191706886)) ? null : cljs.core.apply.call(null, quiescent.dom.ul, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "friends list-group"], null), cljs.core.map.call(null, 
   wishare.friends.Friend, items)));
 });
@@ -47180,48 +47213,55 @@ wishare.core.dashboard = function dashboard(tabs) {
   var tabs__$1 = cljs.core.map.call(null, cljs.core.first, config);
   var config__$1 = cljs.core.reduce.call(null, cljs.core.conj, cljs.core.PersistentArrayMap.EMPTY, config);
   return quiescent.component.call(null, function(config, tabs__$1, config__$1) {
-    return function(p__8300, mode) {
-      var map__8301 = p__8300;
-      var map__8301__$1 = cljs.core.seq_QMARK_.call(null, map__8301) ? cljs.core.apply.call(null, cljs.core.hash_map, map__8301) : map__8301;
-      var items = cljs.core.get.call(null, map__8301__$1, new cljs.core.Keyword(null, "items", "items", 1031954938));
-      var active = cljs.core.get.call(null, map__8301__$1, new cljs.core.Keyword(null, "active", "active", 1895962068));
+    return function(p__7233, mode) {
+      var map__7234 = p__7233;
+      var map__7234__$1 = cljs.core.seq_QMARK_.call(null, map__7234) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7234) : map__7234;
+      var items = cljs.core.get.call(null, map__7234__$1, new cljs.core.Keyword(null, "items", "items", 1031954938));
+      var active = cljs.core.get.call(null, map__7234__$1, new cljs.core.Keyword(null, "active", "active", 1895962068));
       var heading = quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "panel-heading"], null), cljs.core.apply.call(null, quiescent.dom.ul, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "className", "className", -1983287057), "nav nav-pills nav-justified", new cljs.core.Keyword(null, "role", "role", -736691072), "tablist"], null), function() {
-        var iter__4377__auto__ = function(map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1) {
-          return function iter__8302(s__8303) {
-            return new cljs.core.LazySeq(null, function(map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1) {
+        var iter__4377__auto__ = function(map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1) {
+          return function iter__7235(s__7236) {
+            return new cljs.core.LazySeq(null, function(map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1) {
               return function() {
-                var s__8303__$1 = s__8303;
+                var s__7236__$1 = s__7236;
                 while (true) {
-                  var temp__4126__auto__ = cljs.core.seq.call(null, s__8303__$1);
+                  var temp__4126__auto__ = cljs.core.seq.call(null, s__7236__$1);
                   if (temp__4126__auto__) {
-                    var s__8303__$2 = temp__4126__auto__;
-                    if (cljs.core.chunked_seq_QMARK_.call(null, s__8303__$2)) {
-                      var c__4375__auto__ = cljs.core.chunk_first.call(null, s__8303__$2);
+                    var s__7236__$2 = temp__4126__auto__;
+                    if (cljs.core.chunked_seq_QMARK_.call(null, s__7236__$2)) {
+                      var c__4375__auto__ = cljs.core.chunk_first.call(null, s__7236__$2);
                       var size__4376__auto__ = cljs.core.count.call(null, c__4375__auto__);
-                      var b__8305 = cljs.core.chunk_buffer.call(null, size__4376__auto__);
+                      var b__7238 = cljs.core.chunk_buffer.call(null, size__4376__auto__);
                       if (function() {
-                        var i__8304 = 0;
+                        var i__7237 = 0;
                         while (true) {
-                          if (i__8304 < size__4376__auto__) {
-                            var tab = cljs.core._nth.call(null, c__4375__auto__, i__8304);
-                            var map__8308 = config__$1.call(null, tab);
-                            var map__8308__$1 = cljs.core.seq_QMARK_.call(null, map__8308) ? cljs.core.apply.call(null, cljs.core.hash_map, map__8308) : map__8308;
-                            var route = cljs.core.get.call(null, map__8308__$1, new cljs.core.Keyword(null, "route", "route", 329891309));
-                            var modes = cljs.core.get.call(null, map__8308__$1, new cljs.core.Keyword(null, "modes", "modes", -1377787092));
-                            var title = cljs.core.get.call(null, map__8308__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
-                            if (cljs.core.truth_(modes.call(null, mode))) {
-                              cljs.core.chunk_append.call(null, b__8305, cljs.core._EQ_.call(null, tab, active) ? quiescent.dom.li.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "active"], null), quiescent.dom.a.call(null, cljs.core.PersistentArrayMap.EMPTY, title)) : quiescent.dom.li.call(null, cljs.core.PersistentArrayMap.EMPTY, quiescent.dom.a.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, 
-                              "onClick", "onClick", -1991238530), function(i__8304, s__8303__$1, map__8308, map__8308__$1, route, modes, title, tab, c__4375__auto__, size__4376__auto__, b__8305, s__8303__$2, temp__4126__auto__, map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1) {
+                          if (i__7237 < size__4376__auto__) {
+                            var tab = cljs.core._nth.call(null, c__4375__auto__, i__7237);
+                            var map__7241 = config__$1.call(null, tab);
+                            var map__7241__$1 = cljs.core.seq_QMARK_.call(null, map__7241) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7241) : map__7241;
+                            var route = cljs.core.get.call(null, map__7241__$1, new cljs.core.Keyword(null, "route", "route", 329891309));
+                            var modes = cljs.core.get.call(null, map__7241__$1, new cljs.core.Keyword(null, "modes", "modes", -1377787092));
+                            var title = cljs.core.get.call(null, map__7241__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
+                            if (cljs.core.truth_(function() {
+                              var and__3627__auto__ = modes.call(null, mode);
+                              if (cljs.core.truth_(and__3627__auto__)) {
+                                return!(route == null);
+                              } else {
+                                return and__3627__auto__;
+                              }
+                            }())) {
+                              cljs.core.chunk_append.call(null, b__7238, cljs.core._EQ_.call(null, tab, active) ? quiescent.dom.li.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "active"], null), quiescent.dom.a.call(null, cljs.core.PersistentArrayMap.EMPTY, title)) : quiescent.dom.li.call(null, cljs.core.PersistentArrayMap.EMPTY, quiescent.dom.a.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, 
+                              "onClick", "onClick", -1991238530), function(i__7237, s__7236__$1, map__7241, map__7241__$1, route, modes, title, tab, c__4375__auto__, size__4376__auto__, b__7238, s__7236__$2, temp__4126__auto__, map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1) {
                                 return function(_) {
                                   return wishare.core.show.call(null, route, cljs.core.deref.call(null, wishare.core.suffix));
                                 };
-                              }(i__8304, s__8303__$1, map__8308, map__8308__$1, route, modes, title, tab, c__4375__auto__, size__4376__auto__, b__8305, s__8303__$2, temp__4126__auto__, map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1), new cljs.core.Keyword(null, "style", "style", -496642736), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "cursor", "cursor", 1011937484), "pointer"], null)], null), title)));
-                              var G__8310 = i__8304 + 1;
-                              i__8304 = G__8310;
+                              }(i__7237, s__7236__$1, map__7241, map__7241__$1, route, modes, title, tab, c__4375__auto__, size__4376__auto__, b__7238, s__7236__$2, temp__4126__auto__, map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1), new cljs.core.Keyword(null, "style", "style", -496642736), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "cursor", "cursor", 1011937484), "pointer"], null)], null), title)));
+                              var G__7243 = i__7237 + 1;
+                              i__7237 = G__7243;
                               continue;
                             } else {
-                              var G__8311 = i__8304 + 1;
-                              i__8304 = G__8311;
+                              var G__7244 = i__7237 + 1;
+                              i__7237 = G__7244;
                               continue;
                             }
                           } else {
@@ -47230,27 +47270,34 @@ wishare.core.dashboard = function dashboard(tabs) {
                           break;
                         }
                       }()) {
-                        return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__8305), iter__8302.call(null, cljs.core.chunk_rest.call(null, s__8303__$2)));
+                        return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__7238), iter__7235.call(null, cljs.core.chunk_rest.call(null, s__7236__$2)));
                       } else {
-                        return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__8305), null);
+                        return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__7238), null);
                       }
                     } else {
-                      var tab = cljs.core.first.call(null, s__8303__$2);
-                      var map__8309 = config__$1.call(null, tab);
-                      var map__8309__$1 = cljs.core.seq_QMARK_.call(null, map__8309) ? cljs.core.apply.call(null, cljs.core.hash_map, map__8309) : map__8309;
-                      var route = cljs.core.get.call(null, map__8309__$1, new cljs.core.Keyword(null, "route", "route", 329891309));
-                      var modes = cljs.core.get.call(null, map__8309__$1, new cljs.core.Keyword(null, "modes", "modes", -1377787092));
-                      var title = cljs.core.get.call(null, map__8309__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
-                      if (cljs.core.truth_(modes.call(null, mode))) {
+                      var tab = cljs.core.first.call(null, s__7236__$2);
+                      var map__7242 = config__$1.call(null, tab);
+                      var map__7242__$1 = cljs.core.seq_QMARK_.call(null, map__7242) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7242) : map__7242;
+                      var route = cljs.core.get.call(null, map__7242__$1, new cljs.core.Keyword(null, "route", "route", 329891309));
+                      var modes = cljs.core.get.call(null, map__7242__$1, new cljs.core.Keyword(null, "modes", "modes", -1377787092));
+                      var title = cljs.core.get.call(null, map__7242__$1, new cljs.core.Keyword(null, "title", "title", 636505583));
+                      if (cljs.core.truth_(function() {
+                        var and__3627__auto__ = modes.call(null, mode);
+                        if (cljs.core.truth_(and__3627__auto__)) {
+                          return!(route == null);
+                        } else {
+                          return and__3627__auto__;
+                        }
+                      }())) {
                         return cljs.core.cons.call(null, cljs.core._EQ_.call(null, tab, active) ? quiescent.dom.li.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "active"], null), quiescent.dom.a.call(null, cljs.core.PersistentArrayMap.EMPTY, title)) : quiescent.dom.li.call(null, cljs.core.PersistentArrayMap.EMPTY, quiescent.dom.a.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "onClick", 
-                        "onClick", -1991238530), function(s__8303__$1, map__8309, map__8309__$1, route, modes, title, tab, s__8303__$2, temp__4126__auto__, map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1) {
+                        "onClick", -1991238530), function(s__7236__$1, map__7242, map__7242__$1, route, modes, title, tab, s__7236__$2, temp__4126__auto__, map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1) {
                           return function(_) {
                             return wishare.core.show.call(null, route, cljs.core.deref.call(null, wishare.core.suffix));
                           };
-                        }(s__8303__$1, map__8309, map__8309__$1, route, modes, title, tab, s__8303__$2, temp__4126__auto__, map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1), new cljs.core.Keyword(null, "style", "style", -496642736), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "cursor", "cursor", 1011937484), "pointer"], null)], null), title)), iter__8302.call(null, cljs.core.rest.call(null, s__8303__$2)));
+                        }(s__7236__$1, map__7242, map__7242__$1, route, modes, title, tab, s__7236__$2, temp__4126__auto__, map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1), new cljs.core.Keyword(null, "style", "style", -496642736), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "cursor", "cursor", 1011937484), "pointer"], null)], null), title)), iter__7235.call(null, cljs.core.rest.call(null, s__7236__$2)));
                       } else {
-                        var G__8312 = cljs.core.rest.call(null, s__8303__$2);
-                        s__8303__$1 = G__8312;
+                        var G__7245 = cljs.core.rest.call(null, s__7236__$2);
+                        s__7236__$1 = G__7245;
                         continue;
                       }
                     }
@@ -47260,15 +47307,15 @@ wishare.core.dashboard = function dashboard(tabs) {
                   break;
                 }
               };
-            }(map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1), null, null);
+            }(map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1), null, null);
           };
-        }(map__8301, map__8301__$1, items, active, config, tabs__$1, config__$1);
+        }(map__7234, map__7234__$1, items, active, config, tabs__$1, config__$1);
         return iter__4377__auto__.call(null, tabs__$1);
       }()));
       var comp = cljs.core.get_in.call(null, config__$1, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [active, new cljs.core.Keyword(null, "comp", "comp", 1191953630)], null));
       var available_modes = cljs.core.get_in.call(null, config__$1, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [active, new cljs.core.Keyword(null, "modes", "modes", -1377787092)], null));
       if (cljs.core.truth_(available_modes.call(null, mode))) {
-        return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "col-md-8 dashboard"], null), comp.call(null, items, heading, mode));
+        return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "col-md-8 dashboard"], null), comp.call(null, items, heading, mode, wishare.core.state));
       } else {
         throw "Tab " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(active) + " is not available in mode " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(mode) + "!";
       }
@@ -47276,14 +47323,14 @@ wishare.core.dashboard = function dashboard(tabs) {
   }(config, tabs__$1, config__$1));
 };
 wishare.core.mk_page = function mk_page(header_comp, dashboard_comp, timeline_comp) {
-  return quiescent.component.call(null, function(p__8315, mode) {
-    var map__8316 = p__8315;
-    var map__8316__$1 = cljs.core.seq_QMARK_.call(null, map__8316) ? cljs.core.apply.call(null, cljs.core.hash_map, map__8316) : map__8316;
-    var data = map__8316__$1;
-    var timeline = cljs.core.get.call(null, map__8316__$1, new cljs.core.Keyword(null, "timeline", "timeline", 192903161));
-    var dashboard = cljs.core.get.call(null, map__8316__$1, new cljs.core.Keyword(null, "dashboard", "dashboard", -631747508));
-    var header = cljs.core.get.call(null, map__8316__$1, new cljs.core.Keyword(null, "header", "header", 119441134));
-    var mode__$1 = cljs.core.get.call(null, map__8316__$1, new cljs.core.Keyword(null, "mode", "mode", 654403691));
+  return quiescent.component.call(null, function(p__7248, mode) {
+    var map__7249 = p__7248;
+    var map__7249__$1 = cljs.core.seq_QMARK_.call(null, map__7249) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7249) : map__7249;
+    var data = map__7249__$1;
+    var timeline = cljs.core.get.call(null, map__7249__$1, new cljs.core.Keyword(null, "timeline", "timeline", 192903161));
+    var dashboard = cljs.core.get.call(null, map__7249__$1, new cljs.core.Keyword(null, "dashboard", "dashboard", -631747508));
+    var header = cljs.core.get.call(null, map__7249__$1, new cljs.core.Keyword(null, "header", "header", 119441134));
+    var mode__$1 = cljs.core.get.call(null, map__7249__$1, new cljs.core.Keyword(null, "mode", "mode", 654403691));
     return quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "container"], null), quiescent.dom.nav.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "navbar navbar-default"], null), quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "container-fluid"], 
     null), quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "navbar-header"], null), quiescent.dom.a.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "className", "className", -1983287057), "navbar-brand", new cljs.core.Keyword(null, "href", "href", -793805698), "https://clojurecup.com/#/apps/wishare"], null), quiescent.dom.img.call(null, new cljs.core.PersistentArrayMap(null, 
     1, [new cljs.core.Keyword(null, "src", "src", -1651076051), "/img/logo128x128.png"], null)), quiescent.dom.img.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "src", "src", -1651076051), "/img/vote-for-us.jpg"], null)))), quiescent.dom.div.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "collapse navbar-collapse"], null), quiescent.dom.ul.call(null, new cljs.core.PersistentArrayMap(null, 
@@ -47291,10 +47338,23 @@ wishare.core.mk_page = function mk_page(header_comp, dashboard_comp, timeline_co
     new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "className", "className", -1983287057), "content col-md-12 panel panel-default"], null), dashboard_comp.call(null, dashboard, mode__$1), timeline_comp.call(null, timeline, mode__$1)));
   });
 };
-wishare.core.Page = wishare.core.mk_page.call(null, wishare.profile.UserHeader, wishare.core.dashboard.call(null, new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "wishlist", "wishlist", 352427404), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "route", "route", 329891309), "wishlist", new cljs.core.Keyword(null, "comp", "comp", 1191953630), wishare.wishlist.Wishlist, new cljs.core.Keyword(null, "title", "title", 
-636505583), "Wishlist", new cljs.core.Keyword(null, "modes", "modes", -1377787092), new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "my-own", "my-own", -1841146167), null, new cljs.core.Keyword(null, "readonly", "readonly", -1101398934), null, new cljs.core.Keyword(null, "friend", "friend", -286879240), null], null), null)], null), new cljs.core.Keyword(null, "friends", "friends", -127631374), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, 
-"route", "route", 329891309), "friends", new cljs.core.Keyword(null, "comp", "comp", 1191953630), wishare.friends.FriendList, new cljs.core.Keyword(null, "title", "title", 636505583), "Friends", new cljs.core.Keyword(null, "modes", "modes", -1377787092), new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "my-own", "my-own", -1841146167), null, new cljs.core.Keyword(null, "friend", "friend", -286879240), null], null), null)], null)], null)), 
-wishare.timeline.Timeline);
+wishare.core.Page = wishare.core.mk_page.call(null, wishare.profile.UserHeader, wishare.core.dashboard.call(null, new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "wishlist", "wishlist", 352427404), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "route", "route", 329891309), "wishlist", new cljs.core.Keyword(null, "comp", "comp", 1191953630), wishare.wishlist.Wishlist, new cljs.core.Keyword(null, "title", "title", 
+636505583), "Wishlist", new cljs.core.Keyword(null, "modes", "modes", -1377787092), new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "my-own", "my-own", -1841146167), null, new cljs.core.Keyword(null, "readonly", "readonly", -1101398934), null, new cljs.core.Keyword(null, "friend", "friend", -286879240), null], null), null)], null), new cljs.core.Keyword(null, "add-wish", "add-wish", 397371801), new cljs.core.PersistentArrayMap(null, 2, 
+[new cljs.core.Keyword(null, "comp", "comp", 1191953630), wishare.wishlist.AddWish, new cljs.core.Keyword(null, "modes", "modes", -1377787092), new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "my-own", "my-own", -1841146167), null], null), null)], null), new cljs.core.Keyword(null, "friends", "friends", -127631374), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "route", "route", 329891309), "friends", new cljs.core.Keyword(null, 
+"comp", "comp", 1191953630), wishare.friends.FriendList, new cljs.core.Keyword(null, "title", "title", 636505583), "Friends", new cljs.core.Keyword(null, "modes", "modes", -1377787092), new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "my-own", "my-own", -1841146167), null, new cljs.core.Keyword(null, "friend", "friend", -286879240), null], null), null)], null)], null)), wishare.timeline.Timeline);
 cljs.core.add_watch.call(null, wishare.core.state, new cljs.core.Keyword("wishare.core", "render", "wishare.core/render", 1676163762), function(_, atm, ___$1, data) {
-  return quiescent.render.call(null, wishare.core.Page.call(null, data), document.getElementById("root"));
+  var submit = data.call(null, new cljs.core.Keyword(null, "submit", "submit", -49315317));
+  if (submit == null) {
+    return quiescent.render.call(null, wishare.core.Page.call(null, data), document.getElementById("root"));
+  } else {
+    var map__7250 = submit;
+    var map__7250__$1 = cljs.core.seq_QMARK_.call(null, map__7250) ? cljs.core.apply.call(null, cljs.core.hash_map, map__7250) : map__7250;
+    var data__$1 = cljs.core.get.call(null, map__7250__$1, new cljs.core.Keyword(null, "data", "data", -232669377));
+    var route = cljs.core.get.call(null, map__7250__$1, new cljs.core.Keyword(null, "route", "route", 329891309));
+    return ajax.core.POST.call(null, "/api/" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(route), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "params", "params", 710516235), data__$1, new cljs.core.Keyword(null, "handler", "handler", -195596612), function(map__7250, map__7250__$1, data__$1, route, submit) {
+      return function(res) {
+        return cljs.core.swap_BANG_.call(null, wishare.core.state, cljs.core.merge, cljs.reader.read_string.call(null, res));
+      };
+    }(map__7250, map__7250__$1, data__$1, route, submit)], null));
+  }
 });

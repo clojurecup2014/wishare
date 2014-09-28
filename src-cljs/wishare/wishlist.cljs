@@ -3,6 +3,10 @@
             [quiescent.dom :as d]))
 
 
+(defn add-wish!
+  [state]
+  (swap! state assoc :dashboard {:active :add-wish}))
+
 (defn Wish
   "Wishlist item prototype"
   [extension]
@@ -59,7 +63,7 @@
 
 (q/defcomponent Wishlist
   "Wishlist"
-  [items heading mode]
+  [items heading mode state]
   (d/div
    {:className "panel panel-default wishlist"}
    heading
@@ -70,7 +74,8 @@
            (when (= mode :my-own)
              (d/li {:className "list-group-item add-wish"}
                    (d/button {:type "button"
-                              :className "btn btn-default btn-block add-wish"}
+                              :className "btn btn-default btn-block add-wish"
+                              :onClick #(add-wish! state)}
                              "Add Wish Item"))))
           ;; items
           (let [item (case mode
@@ -78,3 +83,52 @@
                        :my-own MyWish
                        FriendWish)]
             (map item items)))))
+
+
+(q/defcomponent AddWish
+  "Form for adding of wishes"
+  [{:keys [id title description url photo-url] :or {id nil}}
+   heading mode state]
+  (d/div
+   {:className "panel panel-default edit-item"}
+   heading
+   (d/div {:className "panel-heading"}
+          (d/h2 {:className "panel-title"}
+                "Add/Edit a Wish"))
+   (d/div
+    {:className "panel-body"}
+    ;; field fabric
+    (letfn [(labeled [label placeholder name el attrs]
+              (let [id (str name "-input")]
+                (d/div {:className "form-group"}
+                       (d/label {:for id} label)
+                       (el (assoc attrs
+                             :className "form-control"
+                             :name name
+                             :id id
+                             :placeholder placeholder)))))]
+      (d/form
+       {:role "form"
+        :id "add-wish-form"}
+       (labeled "Title" "Enter title" "title"
+                d/input {:type "text" :required true})
+       (labeled "Description" "Enter description" "description"
+                d/textarea {:row 3 :required true})
+       (labeled "URL" "Enter URL" "url" d/input {:type "url"})
+       (labeled "Photo URL" "Enter URL for photo" "photo" d/input {:type "url"})
+       (d/input
+        {:type "button" :className "btn btn-primary" :value "Submit"
+         :onClick (fn []
+                    (let [data (js/FormData. (.getElementById
+                                              js/document "add-wish-form"))]
+                      ;; (let [get-val (fn [id] (.-value (.getElementById
+                      ;;                                 js/document id)))
+                      ;;       submit {:from :add-wish
+                      ;;               :route (if (nil? id) "item" (str "item/" id))
+                      ;;               :data {:title (get-val "title-input")
+                      ;;                      :description (get-val "description-input")
+                      ;;                      :url (get-val "url-input")
+                      ;;                      :photo-url (get-val "photo-input")}}])
+                      (swap! state assoc :submit
+                             {:route (if (nil? id) "item" (str "item/" id))
+                              :data data})))}))))))

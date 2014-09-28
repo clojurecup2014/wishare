@@ -129,17 +129,16 @@
   [{{:keys [id title user description url photo-url]} :params
     :as request}]
   (let [user-created (get-current-user request)
-        to-user (storage/get-user-by-id user)]
+        to-user (if-not (nil? user)
+                  (storage/get-user-by-id user)
+                  user-created)]
 
     (storage/add-wish user-created to-user title description url photo-url)))
 
 
-(defn wish-item-create [{{title :title
-                          user :user
-                          description :description
-                          url :url
-                          photo-url :photo-url
-                          } :params :as request}]
+(defn wish-item-create
+  [{{:keys [title user description url photo-url]} :multipart-params :as request}]
+  (println request)
   (let [user (get-current-user request)
         user-to (get-current-user user)]
     (storage/add-wish user-to user title description url photo-url)))

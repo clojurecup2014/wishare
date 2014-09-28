@@ -33,6 +33,7 @@
   (GET "/item/:id" [] api/wish-item-mock)
   (POST "item/:id" [] api/wish-item-submit)
   (POST "item" [] api/wish-item-create)
+  (POST "/item" [] api/wish-item-create)
   (GET "/test" request (str (:session request)))
   )
 
