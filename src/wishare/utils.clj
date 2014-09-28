@@ -11,8 +11,11 @@
   "Parse Amazon/eBay/etc page and return product image URL if available"
   [url]
   (first (map #(if (.contains url %)
-      (let [http-params (config :http)
-            page-content (fetch-url url)]
-        (((first (html/select page-content (image-paths %))) :attrs) :src))
+      (try
+        (let [http-params (config :http)
+              page-content (fetch-url url)]
+          (((first (html/select page-content (image-paths %))) :attrs) :src))
+        ; TODO: logging for failed HTTP queries
+        (catch Exception e nil))
       nil)
     (keys image-paths))))
