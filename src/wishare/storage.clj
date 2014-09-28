@@ -6,9 +6,9 @@
 (def conn (d/connect uri))
 
 (defn find-wish-user-id [user-login]
-  (ffirst (d/q '[:find ?eid
+  (ffirst (d/q '[:find ?user
                  :in $ ?user-login
-                 :where [?eid :user/login ?user-login]]
+                 :where [?user :user/login ?user-login]]
                (d/db conn)
                user-login)))
 
@@ -19,13 +19,14 @@
                       :user/login email}]))
 
 
-(defn add-wish [user-login user-created-email title description url]
-  @(d/transact conn [{:db/id (d/tempid :db.part/user)
+(defn add-wish [user-login user-created-login title description url]
+  @(d/transact conn [
+                     {:db/id (d/tempid :db.part/user)
                       :wish/description description
                       :wish/url url
                       :wish/title title
                       :wish/user (find-wish-user-id user-login)
-                      :wish/user-created (find-wish-user-id user-created-email)
+                      :wish/user-created (find-wish-user-id user-created-login)
                       }]))
 
 
@@ -78,10 +79,13 @@
 
 
 (defn find-wish-for-user [user-login]
-  (d/q '[:find ?wish-name
+  (d/q '[:find ?wish-title
          :in $ ?user-login
-         :where [?eid :user/login ?user-login]
-         ;[?eid :user/wish ?wish]
-         [?wish :wish/title ?wish-name]]
+         :where [?wish-user :user/login ?user-login]
+                [?w :wish/user ?wish-user]
+                [?w :wish/title ?wish-title]]
        (d/db conn)
        user-login))
+
+
+
