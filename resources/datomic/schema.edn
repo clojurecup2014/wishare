@@ -218,14 +218,14 @@
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :timestamp/timestamp
+  :db/ident :timeline/timestamp
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "A wish comment timestamp"
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
-  :db/ident :timeline/string
+  :db/ident :timeline/text
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}]
