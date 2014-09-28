@@ -8,10 +8,20 @@
             [ring.middleware.cookies :refer [wrap-cookies]]
             [ring.middleware.session :refer [wrap-session]]
             [clj-redis-session.core :refer [redis-store]]
-            [wishare.auth :refer [with-auth signin]]))
+            [wishare.auth :refer [with-auth signin]]
+            [wishare.api :as api]))
 
 
 (def debug? (config :debug?))
+
+
+; TODO wrap-edn middleware
+(defroutes api-routes
+  (GET "/wishlist" [] api/my-wishlist)
+  (GET "/wishlist/:username" [] api/user-wishlist)
+  (GET "/friends" [] api/my-friends)
+  (GET "/friends/:username" [] api/user-friends)
+  )
 
 
 (defroutes app-routes

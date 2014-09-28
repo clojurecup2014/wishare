@@ -4,30 +4,30 @@
 
 ;; Мой профайл: wishlist
 {:readonly? false
- :header {:username "joe_the_hacker"
-          :fullname "Joe"
-          :avatar}
+ :header {:login "joe_the_hacker"
+          :real-name "Joe"
+          :avatar-url}
  :dashboard {:mode :wishlist
              :my-own? true
              :items [{:title "iPhone6"
                       :id 102
-                      :image "http://img.ur/2D3Fasdf6"}]}
+                      :photo-url "http://img.ur/2D3Fasdf6"}]}
  :timeline [{:title "Wished the bike"
-             :time "5 min"}]}
+             :timestamp "5 min"}]}
 
 ;; Мой профайл: друзья
 {:readonly? false
- :header {:username "joe_the_hacker"
-          :fullname "Joe"
-          :avatar}
+ :header {:login "joe_the_hacker"
+          :real-name "Joe"
+          :avatar-url}
  :dashboard {:mode :friends
              :my-own? true
-             :items [{:username "jd"
-                      :fullname "John Dowe"
+             :items [{:login "jd"
+                      :real-name "John Dowe"
                       :id 33
-                      :avatar "http://img.jpg"}]}
+                      :avatar-url "http://img.jpg"}]}
  :timeline [{:title "Wished the bike"
-             :time "5 min"}]}
+             :timestamp "5 min"}]}
 
 ;; Профайл readonly
 {:readonly? true
@@ -59,3 +59,11 @@
 ;; TODO
 ;; - формочки?
 ;; - ещё чего?
+
+;; TODO get badges to dashboard
+
+;; TODO get wish details (with comments)
+;; TODO submit wish item
+;; TODO submit comment
+
+;; TODO submit status change
