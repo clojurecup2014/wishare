@@ -1,53 +1,65 @@
 (ns wishare.core
-  (:require [enfocus.core :as ef]
-            [enfocus.events :as events]
+  (:require [quiescent :as q :include-macros true]
+            [quiescent.dom :as d]
             [wishare.wishlist :as wishlist]
-            [wishare.friends :as friends])
-  (:require-macros [enfocus.macros :as em]))
+            [wishare.friends :as friends]
+            [wishare.profile :as profile]))
 
 
-(def wishes ["iPhone6"
-             "Tesla"
-             "Hoverboard"])
+(defn dashboard
+  [inner]
+  (q/component
+   (fn [readonly? data]
+     (let [heading (d/div
+                    {:className "panel-heading"}
+                    (d/ul {:className "nav nav-pills nav-justified"
+                           :role"tablist"}
+                          (d/li {:className "active"}
+                                "Wishlist")))]
+       (d/div {:className "col-md-8 dashboard"}
+              (inner heading readonly? data))))))
 
-(def timestamps [{:description "Wished an iPhone6" :time "5 min"}
-                 {:description "Gifted a bat" :time "2 days"}])
 
-(em/defsnippet timestamp
-  :compiled "templates/template.html" [".timeline li:first-child"]
-  [{:keys [description time]}]
-  [".description"] (ef/content description)
-  [".timestamp"] (ef/content time))
+(q/defcomponent STUB
+  [& whatever]
+  (d/div {} "STUB!"))
 
-(em/defsnippet profile-page
-  :compiled "templates/template.html" ["body"]
-  []
-  [".page-header h1"] (ef/content "Moe")
 
-  ;;["div.wishlist .wishlist"] (ef/content (map wish wishes))
-  ["div.dashboard"] (ef/content
-                     (wishlist/items {:rows [{:title "111111" :editable? true}
-                                             {:title "222222"}]}))
-  [".timeline ul"] (ef/content (map timestamp timestamps)))
+(q/defcomponent Page
+  "Typical page with header, dashboard and timeline"
+  [header-comp dashboard-comp timeline-comp
+   readonly?
+   {:keys [header dashboard timeline] :as data}]
+  (d/div
+   {:className "container"}
+   ;; header
+   (header-comp readonly? header)
+   (d/div
+    {:className "content col-md-12 panel panel-default"}
+    ;; dashboard
+    (dashboard-comp readonly? dashboard)
+    ;; timeline
+    (timeline-comp readonly? timeline))))
 
-(em/defsnippet my-profile
-  :compiled "templates/template.html" [".container"]
-  []
-  [".dashboard .panel:not(.wishlist), .panel.item-statuses, .page-header button"]
-    (ef/remove-node)
-  [".wish-item span.badge:not(:first-child)"] (ef/remove-node)
-  [".wish-item"] (em/clone-for [row [{:title "iPhone6" :gifted false}
-                                     {:title "NVidia Shield" :gifted true}]]
-                               ".title" (ef/content (:title row))
-                               "span.badge" (when (not (:gifted row))
-                                              (ef/remove-node))
-                               "button.edit" (when (:gifted row)
-                                               (ef/remove-node)))
-  [".timeline li"] (ef/remove-node)
-  [".timeline"] (ef/append (map timestamp timestamps)))
+
+(def ProfilePage (partial Page
+                          profile/UserHeader
+                          (dashboard wishlist/Wishlist)
+                          STUB))
 
 
 (defn ^:export renderProfile
   []
-  (ef/at ["body"] (ef/append (my-profile))))
-
+  (let [fake {:header {:name "Vault Boy"
+                       :nickname "vault_boy"
+                       :avatar "http://www.g0l.ru/imgs/avatars/263.jpg"}
+              :dashboard {:my-own? true
+                          :items [{:title "iPhone6"
+                                   :id 1
+                                   :image "http://www.fordesigner.com/imguploads/Image/cjbc/zcool/png20080526/1211811605.png"}
+                                  {:title "Tesla"
+                                   :id 2
+                                   :image "http://ev-cars.ru/sites/default/files/styles/icon-64x64/public/gallery/2012/12/04/2013-Tesla-Model-S-front-1.jpg"}]}}]
+    (q/render (ProfilePage false ;; readonly flag!
+                           fake)
+              (.getElementById js/document "root"))))
