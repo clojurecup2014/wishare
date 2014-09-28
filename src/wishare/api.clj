@@ -56,20 +56,18 @@
   [{{username :username} :params :as request}]
   (let [current-user (get-current-user request)
         other-user (storage/get-user-by-id username)]
-    (if (= (:username current-user) username)
+    (if (= (:login current-user) username)
       (redirect "wishlist")
-      (if (is-friends? current-user other-user)
-        (let [wishes (storage/find-wish-for-user
-                      (:username other-user))
-              timeline (storage/find-user-timeline
-                        (:username other-user))]
-          (pr-str {:readonly? false
-                   :header other-user
-                   :dashboard {:mode :wishlist
-                               :my-own? false
-                               :items wishes}
-                   :timeline timeline}))
-        (my-wishlist (assoc request :read-only true))))))
+      (let [wishes (storage/find-wish-for-user
+                    (:login other-user))
+            timeline (storage/find-user-timeline
+                      (:login other-user))]
+        (pr-str {:mode (if (is-friends? current-user other-user)
+                         :friend :readonly)
+                 :header other-user
+                 :dashboard {:active :wishlist
+                             :items wishes}
+                 :timeline timeline})))))
 
 
 (defn user-friends-mock
