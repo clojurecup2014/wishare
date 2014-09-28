@@ -139,3 +139,12 @@
   (d/q '[:find ?email ?real-name :where     [_ :user/login ?email]
                                             [_ :user/real-name ?real-name]]
        (d/db conn)))
+
+
+; ----- TIMELINE -----
+
+(defn find-user-own-timeline [{:keys [user-id limit]
+                               :or {limit 10}}])
+
+(defn find-user-timeline [{:keys [user-id linit]
+                           :or {limit 10}}])
