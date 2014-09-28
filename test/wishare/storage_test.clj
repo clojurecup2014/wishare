@@ -60,3 +60,11 @@
           (add-wish "jhon@coolmail.com" "paul@maol.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
           (set (map :title (find-offered-wish-for-user "jhon@coolmail.com"))))))
 
+(expect #{"Jhon" "Paul"}
+        (with-redefs [conn (create-empty-im-memory-db)]
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (add-user "Paul" "paul@maol.com")
+            (add-user "Steve" "steve@chachacha.org")
+            (add-user "Morgan" "some twitter id")
+            (set (map :real-name (map (get-user-by-id (find-wish-user-id "jhon@coolmail.com"))))))))

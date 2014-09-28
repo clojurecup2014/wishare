@@ -44,12 +44,12 @@
   :db/doc "A user's account modified date"
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id[:db.part/db]
-  :db/ident :friends
-  :db/valueType :db.type/ref
-  :db/cardinality :db.cardinality/many
-  :db/isComponent true
-  :db.install/_attribute :db.part/db}
+;;{:db/id #db/id[:db.part/db]
+;;  :db/ident :friends
+;;  :db/valueType :db.type/ref
+;;  :db/cardinality :db.cardinality/many
+;;  :db/isComponent true
+;;  :db.install/_attribute :db.part/db}
 
 {:db/id #db/id[:db.part/db]
  :db/ident :user/wishes
@@ -58,6 +58,21 @@
  :db/doc "All wishes for one user"
  :db.install/_attribute :db.part/db}
 
+ ;; ----- Friendship -----
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wish/iniciator
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "Friendship iniciator"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :wish/acceptor
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "Friendship acceptor"
+  :db.install/_attribute :db.part/db}
 
 ;; Wish
 
@@ -213,9 +228,4 @@
   :db/ident :timeline/string
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db.install/_attribute :db.part/db}
- ]
-
-
-{:db/id #db/id[:db.part/db]
- }
+  :db.install/_attribute :db.part/db}]

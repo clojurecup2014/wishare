@@ -228,7 +228,7 @@
 
 (defn find-user-own-timeline [{:keys [user-id limit] :or {limit 10}}]
   "Вернет статус подарка для юзера"
-  (let [timeline (d/q '[:find ?t
+  (let [timeline (d/q '[:find (sample limit ?t)
                         :in $ ?user-id
                         :where
                         [?t :timeline/user ?user-id]]
@@ -240,3 +240,10 @@
 
 (defn find-user-timeline [{:keys [user-id linit]
                            :or {limit 10}}])
+
+;; ----- Friendship -----
+
+(defn get-friends [user-id]
+  ())
+
+
