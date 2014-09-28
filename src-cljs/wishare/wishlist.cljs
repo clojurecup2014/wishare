@@ -45,8 +45,7 @@
 
 (q/defcomponent Wishlist
   "Wishlist"
-  [heading readonly?
-   {:keys [items my-own?] :or {my-own? false}}]
+  [mode heading items]
   (d/div
    {:className "panel panel-default wishlist"}
    heading
@@ -54,14 +53,14 @@
            d/ul
            {:className "wishlist list-group"}
            ;; "add wish" button
-           (when-not readonly?
-             (when my-own?
-               (d/li {:className "list-group-item add-wish"}
-                     (d/button {:type "button"
-                                :className "btn btn-default btn-block add-wish"}
-                               "Add Wish Item")))))
-    ;; items
-    (let [item (cond readonly? ROWish
-                     my-own? MyWish
-                     :else FriendWish)]
-      (map item items)))))
+           (when (= mode :my-own)
+             (d/li {:className "list-group-item add-wish"}
+                   (d/button {:type "button"
+                              :className "btn btn-default btn-block add-wish"}
+                             "Add Wish Item"))))
+          ;; items
+          (let [item (case mode
+                       :readonly ROWish
+                       :my-own MyWish
+                       FriendWish)]
+            (map item items)))))
