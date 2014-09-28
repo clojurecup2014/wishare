@@ -18,7 +18,7 @@
             :className "img-thumbnail pull-left avatar image120x120"})
     (d/h1 {:className "user"}
           name
-          (d/small {} nickname))
+          (d/small {} " aka \"" nickname "\""))
     (when-not (#{:readonly :my-own} mode)
       (if friend?
         (d/button {:className "btn btn-xs btn-danger remove-friend"}

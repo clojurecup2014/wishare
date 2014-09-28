@@ -40,7 +40,21 @@
 
 (def FriendWish
   "Friend's wish"
-  (Wish (fn [data] [data])))
+  (letfn [(badge [badges id cls icon title]
+            (d/span {:className (str "badge gifted " cls
+                                     (if (badges id) " alert-success" ""))
+                     :rel "tooltip"
+                     :data-toggle "tooltip"
+                     :title title}
+                    (d/span {:className (str "glyphicon glyphicon-" icon)})))]
+    (Wish (fn [{:keys [badges] :as data}]
+            [data
+             (let [b (or badges #{})]
+               (d/div {:className "badges pull-right"}
+                      (badge b :gifted "gifted" "gift" "Gifted!!!")
+                      (badge b :got-it "got-it" "ok" "I've got it!")
+                      (badge b :in-progress "in-progress" "shopping-cart" "In porgress...")
+                      (badge b :in-tought "in-thought" "question-sign" "Thinking...")))]))))
 
 
 (q/defcomponent Wishlist

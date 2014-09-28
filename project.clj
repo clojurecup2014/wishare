@@ -35,12 +35,12 @@
   :cljsbuild {:builds {:dev
                        {:source-paths ["src-cljs"]
                         :compiler {:output-to "resources/public/js/main.js"
-                                   :output-dir "resources/public/js"
+                                   ;;:output-dir "resources/public/js"
                                    :optimization :none}}
 
                        :prod
                        {:source-paths ["src-cljs"]
-                        :compiler {:output-to "resources/public/js/main.min.js"
+                        :compiler {:output-to "resources/public/js/main.js"
                                    :optimization :advanced
                                    :pertty-print false
                                    :preamble ["react/react.min.js"]

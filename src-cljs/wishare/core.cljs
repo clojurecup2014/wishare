@@ -10,7 +10,7 @@
 ;; ------------------------------ local state -------------------------------------
 (def state
   (atom {:flag false
-         :mode :my-own
+         :mode :friend
          :header {:name "Vault Boy"
                   :nickname "vault_boy"
                   :avatar "http://www.g0l.ru/imgs/avatars/263.jpg"}
@@ -18,9 +18,11 @@
          :dashboard {:active :wishlist
                      :items [{:title "PipBoy 3K"
                               :id 1
+                              :badges #{:gifted :got-it}
                               :image "http://www.fordesigner.com/imguploads/Image/cjbc/zcool/png20080526/1211811605.png"}
                              {:title "Tesla"
                               :id 2
+                              :badges #{:in-tought}
                               :image "http://ev-cars.ru/sites/default/files/styles/icon-64x64/public/gallery/2012/12/04/2013-Tesla-Model-S-front-1.jpg"}]}
          :dashboard-backup {:active :friends
                             :items [{:real-name "John Dowe"
