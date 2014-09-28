@@ -95,13 +95,18 @@
       (d/nav {:className "navbar navbar-default"}
              (d/div {:className "container-fluid"}
                     (d/div {:className "navbar-header"}
-                           (d/a {:className "navbar-brand" :href "/"}
-                                (d/img {:src "/img/logo128x128.png"})))
+                           (d/a {:className "navbar-brand"
+                                 :href "https://clojurecup.com/#/apps/wishare"}
+                                (d/img {:src "/img/logo128x128.png"})
+                                (d/img {:src "img/vote-for-us.jpg"})))
                     (d/div {:className "collapse navbar-collapse"}
                            (d/ul {:className "nav navbar-nav"}
-                                 (d/li {} (d/h1 {} "WiShare"))))))
-      ;; header
-      (header-comp header mode)
+                                 (d/li {}
+                                       (d/h2 {}
+                                             (d/a {:href "https://clojurecup.com/#/apps/wishare"}
+                                                  "WiShare! Vote for us!"))))))
+             ;; header
+             (header-comp header mode))
       (d/div
        {:className "content col-md-12 panel panel-default"}
        ;; dashboard
