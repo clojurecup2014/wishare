@@ -28,7 +28,7 @@
 (def MyWish
   "Current user's wish"
   (letfn [(btn [cls text]
-            (d/button {:className (str "btn badge " cls)
+            (d/button {:className (str "btn badge btn-default " cls)
                        :type "button"}
                       (d/span {:className "glyphicon glyphicon-edit"})
                       text))]

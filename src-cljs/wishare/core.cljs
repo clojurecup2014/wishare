@@ -74,7 +74,9 @@
                                    :when (modes mode)]
                                (if (= tab active)
                                  (d/li {:className "active"} (d/a {} title))
-                                 (d/li {} (d/a {:onClick (fn [_] (switch-dashboard-to! tab))}
+                                 (d/li {} (d/a {:onClick
+                                                (fn [_] (switch-dashboard-to! tab))
+                                                :style {:cursor "pointer"}}
                                                title))))))
              comp (get-in config [active :comp])
              available-modes (get-in config [active :modes])]

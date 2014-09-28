@@ -8,7 +8,7 @@
   [{:keys [login real-name avatar-url to-me?]
     :or {to-me? false}}]
   (letfn [(btn [cls text]
-            (d/button {:className (str "badge btn pull-right " cls)}
+            (d/button {:className (str "badge btn btn-default " cls)}
                       text))]
     (d/li
      {:className "list-group-item friend"}
