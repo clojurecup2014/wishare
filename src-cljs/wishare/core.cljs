@@ -8,41 +8,21 @@
             [wishare.timeline :as timeline]))
 
 
-;; ------------------------------ local state -------------------------------------
-(def state
-  (atom {}
-   ;; {:flag false
-   ;;  :mode :friend
-   ;;  :header {:name "Vault Boy"
-   ;;           :nickname "vault_boy"
-   ;;           :avatar "http://www.g0l.ru/imgs/avatars/263.jpg"}
-   ;;  :dashboard {:active :wishlist
-   ;;              :items [{:title "PipBoy 3K"
-   ;;                       :id 1
-   ;;                       :badges #{:gifted :got-it}}
-   ;;                      {:title "Tesla"
-   ;;                       :id 2
-   ;;                       :badges #{:in-tought}}]}
-   ;;  :dashboard-backup {:active :friends
-   ;;                     :items [{:real-name "John Dowe"
-   ;;                              :login "jd"
-   ;;                              :id 100}
-   ;;                             {:real-name "Moe"
-   ;;                              :login "moe"
-   ;;                              :id 101}]}
-   ;;  :timeline '()}
-   ))
+;; ------------------------------ local state ----------------------------------
+(def suffix (atom nil))
+(def state (atom {}))
 
+(defn ^:export show
+  [target suff]
+  (let [suff (or @suffix suff)]
+    (GET (str "/api/"
+              (if (not (#{"" nil} suff)) (str target "/" suff) target))
+         {:handler (fn [res]
+                     (do
+                       (reset! suffix suff)
+                       (swap! state merge
+                              (cljs.reader/read-string res))))})))
 
-(defn show-page!
-  [page]
-  (let [url ({[:my-own :wishlist] "/api/wishlist"} page)]
-    (GET url {:handler (fn [res] (swap! state merge (read-string res)))})))
-
-
-(defn use-the-force!
-  "Use the force to refresh the UI!"
-  [] (swap! state update-in [:flag] not))
 
 ;; -----------------------------------------------------------------------------
 
@@ -58,12 +38,12 @@
                       (apply d/ul {:className "nav nav-pills nav-justified"
                                    :role"tablist"}
                              (for [tab tabs
-                                   :let [{:keys [title modes]} (config tab)]
+                                   :let [{:keys [title modes route]} (config tab)]
                                    :when (modes mode)]
                                (if (= tab active)
                                  (d/li {:className "active"} (d/a {} title))
                                  (d/li {} (d/a {:onClick
-                                                (fn [_] (show-page! [mode tab]))
+                                                (fn [_] (show route @suffix))
                                                 :style {:cursor "pointer"}}
                                                title))))))
              comp (get-in config [active :comp])
@@ -91,7 +71,7 @@
                            (d/a {:className "navbar-brand"
                                  :href "https://clojurecup.com/#/apps/wishare"}
                                 (d/img {:src "/img/logo128x128.png"})
-                                (d/img {:src "img/vote-for-us.jpg"})))
+                                (d/img {:src "/img/vote-for-us.jpg"})))
                     (d/div {:className "collapse navbar-collapse"}
                            (d/ul {:className "nav navbar-nav"}
                                  (d/li {}
@@ -111,10 +91,12 @@
 (def Page
   (mk-page
    profile/UserHeader
-   (dashboard [:wishlist {:comp wishlist/Wishlist
+   (dashboard [:wishlist {:route "wishlist"
+                          :comp wishlist/Wishlist
                           :title "Wishlist"
                           :modes #{:my-own :readonly :friend}}
-               :friends {:comp friends/FriendList
+               :friends {:route "friends"
+                         :comp friends/FriendList
                          :title "Friends"
                          :modes #{:my-own :friend}}])
    timeline/Timeline))
@@ -124,10 +106,3 @@
            (fn [_ atm _ data]
              (q/render (Page data)
                        (.getElementById js/document "root"))))
-
-
-(defn ^:export renderProfile
-  []
-  (show-page! [:my-own :wishlist])
-  ;;(use-the-force!)
-  )

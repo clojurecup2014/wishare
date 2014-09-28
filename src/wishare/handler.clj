@@ -37,11 +37,24 @@
   )
 
 
+(defn page
+  [url arg]
+  (let [source (slurp "resources/public/page.html")]
+    (-> source
+        (clojure.string/replace "{{url}}" url)
+        (clojure.string/replace "{{arg}}" arg))))
+
+(defn redirect [url] {:headers {"Location" url} :status 302})
+
+
 (defroutes app-routes
-  (GET "/" [] (slurp "resources/public/profile.html"))
+  (GET "/" [] (page "wishlist" ""))
+  (GET "/user/:name" {{:keys [name]} :params} (page "wishlist" name))
+
   (context "/api" [] (-> api-routes
                          (wrap-edn-content-type)
                          (wrap-edn-params)))
+
   (GET "/welcome" [] (slurp "resources/public/welcome.html"))
 
   ;(GET "/signin" {params :params cookies :cookies} (signin params cookies))
