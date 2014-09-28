@@ -3,12 +3,11 @@
 ;; Далее каждый top-level-элемент означает свою view
 
 ;; Мой профайл: wishlist
-{:readonly? false
+{:mode :readonly ;; || :my-own || :friend
  :header {:login "joe_the_hacker"
           :real-name "Joe"
           :avatar-url}
- :dashboard {:mode :wishlist
-             :my-own? true
+ :dashboard {:active :wishlist
              :items [{:title "iPhone6"
                       :id 102
                       :photo-url "http://img.ur/2D3Fasdf6"}]}
@@ -16,45 +15,17 @@
              :timestamp "5 min"}]}
 
 ;; Мой профайл: друзья
-{:readonly? false
+{:mode :readonly
  :header {:login "joe_the_hacker"
           :real-name "Joe"
           :avatar-url}
  :dashboard {:mode :friends
-             :my-own? true
              :items [{:login "jd"
                       :real-name "John Dowe"
                       :id 33
                       :avatar-url "http://img.jpg"}]}
  :timeline [{:title "Wished the bike"
              :timestamp "5 min"}]}
-
-;; Профайл readonly
-{:readonly? true
- ;; всё как в "Мой профайл: вишлист"
- }
-
-;; Профайл друга: вишлист
-{:readonly? false
- :header {;;...
-          }
- :dashboard {:mode :wishlist
-             :my-own? false
-             ;;...
-             }
- :timeline [;;...
-            ]}
-
-;; Профайл друга: друзья
-{:read-only? false
- :header {;;...
-          }
- :dashboard {:mode :friends
-             :my-own? false
-             ;;...
-             }
- :timeline [;;...
-            ]}
 
 ;; TODO
 ;; - формочки?
