@@ -80,12 +80,10 @@
                  (map :real-name)
                  set))))
 
-(comment
-  (expect "Jhon"
-          (with-redefs [conn (create-empty-im-memory-db)]
-            (do
-              (add-user "Jhon" "jhon@coolmail.com")
-              (->> (find-wish-user-id "jhon@coolmail.com")
-                   get-user-by-id
-                   :real-name))))
-  )
+(expect "Jhon"
+        (with-redefs [conn (create-empty-im-memory-db)]
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (->> (find-wish-user-id "jhon@coolmail.com")
+                 get-user-by-id
+                 :real-name))))
