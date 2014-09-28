@@ -13,12 +13,19 @@
     ;;  twitter-consumer-secret)
     ))
 
+(def static ["ico" "png" "jpg" "jpeg" "gif" "css" "js"])
+
+(defn static-resource-uri?
+  "check is the URI links to static resource"
+  [uri]
+  (not-every? nil? (map #(re-find (re-pattern (str "\\." % "$")) uri) static)))
+
 (defn with-auth
   "auth middleware"
   [handler & {:keys [exclude]
       :or {exclude #{}}}]
   (fn [request]
-    (if (exclude (request :uri))
+    (if (or (exclude (request :uri)) (static-resource-uri? (request :uri)))
       (handler request)
       (do
         (if-not ((:cookies request) "twitter-id")
