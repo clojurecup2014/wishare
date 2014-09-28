@@ -1,6 +1,7 @@
 (ns wishare.core
   (:require [quiescent :as q :include-macros true]
             [quiescent.dom :as d]
+            [ajax.core :as ajax :refer [GET POST]]
             [wishare.wishlist :as wishlist]
             [wishare.friends :as friends]
             [wishare.profile :as profile]
@@ -9,45 +10,35 @@
 
 ;; ------------------------------ local state -------------------------------------
 (def state
-  (atom {:flag false
-         :mode :friend
-         :header {:name "Vault Boy"
-                  :nickname "vault_boy"
-                  :avatar "http://www.g0l.ru/imgs/avatars/263.jpg"}
+  (atom {}
+   ;; {:flag false
+   ;;  :mode :friend
+   ;;  :header {:name "Vault Boy"
+   ;;           :nickname "vault_boy"
+   ;;           :avatar "http://www.g0l.ru/imgs/avatars/263.jpg"}
+   ;;  :dashboard {:active :wishlist
+   ;;              :items [{:title "PipBoy 3K"
+   ;;                       :id 1
+   ;;                       :badges #{:gifted :got-it}}
+   ;;                      {:title "Tesla"
+   ;;                       :id 2
+   ;;                       :badges #{:in-tought}}]}
+   ;;  :dashboard-backup {:active :friends
+   ;;                     :items [{:real-name "John Dowe"
+   ;;                              :login "jd"
+   ;;                              :id 100}
+   ;;                             {:real-name "Moe"
+   ;;                              :login "moe"
+   ;;                              :id 101}]}
+   ;;  :timeline '()}
+   ))
 
-         :dashboard {:active :wishlist
-                     :items [{:title "PipBoy 3K"
-                              :id 1
-                              :badges #{:gifted :got-it}
-                              :image "http://www.fordesigner.com/imguploads/Image/cjbc/zcool/png20080526/1211811605.png"}
-                             {:title "Tesla"
-                              :id 2
-                              :badges #{:in-tought}
-                              :image "http://ev-cars.ru/sites/default/files/styles/icon-64x64/public/gallery/2012/12/04/2013-Tesla-Model-S-front-1.jpg"}]}
-         :dashboard-backup {:active :friends
-                            :items [{:real-name "John Dowe"
-                                     :login "jd"
-                                     :id 100}
-                                    {:real-name "Moe"
-                                     :login "moe"
-                                     :id 101}]}
 
-         :timeline '()}))
+(defn show-page!
+  [page]
+  (let [url ({[:my-own :wishlist] "/api/wishlist"} page)]
+    (GET url {:handler (fn [res] (.log js/console (str res)))})))
 
-(defn switch-dashboard-to!
-  [board]
-  (swap!
-   state
-   (fn [data]
-     (if (= board (get-in data [:dashboard :active]))
-       (do
-         (.error js/console (str "Dashboard " board " is already active!"))
-         data)
-       (let [backup (data :dashboard-backup)
-             current (data :dashboard)]
-         (assoc data
-           :dashboard-backup current
-           :dashboard backup))))))
 
 (defn use-the-force!
   "Use the force to refresh the UI!"
@@ -72,7 +63,7 @@
                                (if (= tab active)
                                  (d/li {:className "active"} (d/a {} title))
                                  (d/li {} (d/a {:onClick
-                                                (fn [_] (switch-dashboard-to! tab))
+                                                (fn [_] (show-page! [mode tab]))
                                                 :style {:cursor "pointer"}}
                                                title))))))
              comp (get-in config [active :comp])
@@ -137,17 +128,6 @@
 
 (defn ^:export renderProfile
   []
-  (use-the-force!)
-  (let [cnt (atom 9)]
-    (.setInterval
-     js/window
-     (fn [& _]
-       (let [x (swap! cnt (fn [n] (if (> n -1) (dec n) 10)))]
-         (swap! state update-in [:timeline]
-                (fn [l]
-                  (if (neg? x)
-                    '()
-                    (->> l
-                         (cons {:title (if (pos? x) (str (dec x) "...") "BOOM!")})
-                         (take 5)))))))
-        500)))
+  (show-page! [:my-own :wishlist])
+  ;;(use-the-force!)
+  )

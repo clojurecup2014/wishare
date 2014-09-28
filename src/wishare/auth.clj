@@ -3,22 +3,11 @@
             [oauth.twitter :as twi]
             [carica.core :refer [config]]))
 
-;; Twitter authorization token
-(def ^:private twitter-token
-  (let [key (config :auth :twitter :key)
-        sec (config :auth :twitter :secret)]
-    (assert (and key sec) "No twitter authorization data in config!")
-    [key sec]
-    ;; (twi/oauth-request-token
-    ;;  twitter-consumer-key
-    ;;  twitter-consumer-secret)
-    ))
-
 
 (defn with-auth
   "auth middleware"
   [handler & {:keys [api-route exclude]
-      :or {api-route "/api" exclude #{}}}]
+              :or {api-route "/api" exclude #{}}}]
   (fn [request]
     (let [uri (request :uri)]
       (if (or (exclude uri) (utils/static-resource-uri? uri))
@@ -29,7 +18,7 @@
               {:status 401
                :body "401 Unauthorized"}
               (handler {:request-method :get
-                        :uri "/signin"}))
+                        :uri "/welcome"}))
             (handler request)))))))
 
 
