@@ -125,3 +125,7 @@
 (defn wish-comment-create [request])
 
 (defn wish-status-submit [request])
+
+(defn add-friend [request])
+
+(defn remove-friend [request])

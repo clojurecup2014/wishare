@@ -22,11 +22,14 @@
 
 ; TODO wrap-edn middleware
 (defroutes api-routes
-  (GET "/wishlist" [] (api/my-wishlist))
-  (GET "/wishlist/:username" [] (api/user-wishlist))
+  (GET "/wishlist" [] api/my-wishlist)
+  (GET "/wishlist/:username" [] api/user-wishlist)
   (GET "/friends" [] api/my-friends)
-  (GET "/friends/:username" request (api/user-friends-mock request))
-  (GET "/item/:id" request (api/wish-item-mock request))
+  (POST "friends/add/:username" [] api/add-friend)
+  (POST "friends/remove/:username" [] api/remove-friend)
+  (GET "/friends/:username" [] api/user-friends-mock)
+  (POST "/item/:id/comment" [] api/wish-comment-create)
+  (GET "/item/:id" [] api/wish-item-mock)
   (POST "item/:id" [] api/wish-item-submit)
   (POST "item" [] api/wish-item-create)
   (GET "/test" request (str (:session request)))
