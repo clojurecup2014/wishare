@@ -15,10 +15,10 @@
                  [clj-redis-session "2.1.0"]
                  [commons-codec "1.4"]
                  [oauth-clj "0.1.13"]
-                 [ring-mock "0.1.5"]
                  ;; client-side
-                 [enfocus "2.1.0"]
-                 ]
+                 [com.facebook/react "0.11.1"]
+                 [quiescent "0.1.4"]
+                 [sablono "0.2.21"]]
 
   :plugins [[lein-ring "0.8.11"]
             [lein-cljsbuild "1.0.3"]]
@@ -28,16 +28,19 @@
 
   :main wishare.main
 
-  :cljsbuild {:builds
-              {:dev {:source-paths ["src-cljs"]
-                     :compiler {:output-to "resources/public/js/main.js"
-                                :optimization :whitespace
-                                :pretty-print true}}
-               :prod {:source-paths ["src-cljs"]
-                      :compiler {:output-to "resources/public/js/main.min.js"
-                                 :optimization :advance
-                                 :pertty-print false}}}
-              }
+  :cljsbuild {:builds {:dev
+                       {:source-paths ["src-cljs"]
+                        :compiler {:output-to "resources/public/js/main.js"
+                                   :output-dir "resources/public/js"
+                                   :optimization :none}}
+
+                       :prod
+                       {:source-paths ["src-cljs"]
+                        :compiler {:output-to "resources/public/js/main.min.js"
+                                   :optimization :advanced
+                                   :pertty-print false
+                                   :preamble ["react/react.min.js"]
+                                   :externs ["react/externs/react.js"]}}}}
 
   :datomic {:schemas ["resources/datomic" ["schema.edn"]]}
 
@@ -46,5 +49,6 @@
               :datomic {:config "resources/datomic/free-transactor-template.properties"
                         :db-uri "datomic:free://localhost:4334/wishare-db"
                         :install-location "/tmp/datomic/datomic-free-0.9.4899"}
-              :dependencies [[javax.servlet/servlet-api "2.5"]]}
+              :dependencies [[javax.servlet/servlet-api "2.5"]
+                             [ring-mock "0.1.5"]]}
              :uberjar {:aot [wishare.main]}})
