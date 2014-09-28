@@ -43,3 +43,20 @@
           (add-wish "paul@maol.com" "paul@maol.com" "Knife" "The big one" :url "http://howtocookacat.com")
           (set (map :title (find-wish-for-user "paul@maol.com") ) ))))
 
+(expect #{}
+        (with-redefs [conn (create-empty-im-memory-db)]
+        (do
+          (add-user "Jhon" "jhon@coolmail.com")
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
+          (set (map :title (find-offered-wish-for-user "jhon@coolmail.com") ) ))))
+
+(expect #{"Pen"}
+        (with-redefs [conn (create-empty-im-memory-db)]
+        (do
+          (add-user "Jhon" "jhon@coolmail.com")
+          (add-user "Paul" "paul@maol.com")
+          (add-wish "jhon@coolmail.com" "jhon@coolmail.com" "Bike" "Cool bike" :url "http://mysite.com")
+          (add-wish "jhon@coolmail.com" "paul@maol.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
+          (set (map :title (find-offered-wish-for-user "jhon@coolmail.com"))))))
+
