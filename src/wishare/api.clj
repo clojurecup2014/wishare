@@ -20,7 +20,6 @@
   (let [uid (get-request-user-id request)]
     (if (nil? uid)
       (let [{{{u :value} "twitter-user"} :cookies} request]
-        (println u)
         (storage/add-user u u)
         (storage/get-user-by-id u))
       (storage/get-user-by-id uid))))

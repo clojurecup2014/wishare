@@ -37,7 +37,7 @@
 (defn show-page!
   [page]
   (let [url ({[:my-own :wishlist] "/api/wishlist"} page)]
-    (GET url {:handler (fn [res] (.log js/console (str res)))})))
+    (GET url {:handler (fn [res] (swap! state merge (read-string res)))})))
 
 
 (defn use-the-force!
