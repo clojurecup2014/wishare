@@ -16,7 +16,7 @@
 
 (q/defcomponent Timeline
   "Timeline List"
-  [mode items]
+  [items mode]
   (d/div {:className "col-md-4 side-pane"}
          (d/div {:className "panel panel-default timeline"}
                 (d/div {:className "panel-heading"}
