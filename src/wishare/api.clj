@@ -35,7 +35,7 @@
              :header user
              :dashboard {:active :wishlist
                          :items wishes}
-             :timeline '() ;;timeline
+             :timeline timeline
              })))
 
 
@@ -44,10 +44,9 @@
   (let [user (get-current-user request)
         friends (storage/find-all-user-friends (:username user))
         timeline (storage/find-user-own-timeline (:username user))]
-    (pr-str {:readonly? false
+    (pr-str {:mode :my-own
              :header user
-             :dashboard {:mode :friends
-                         :my-own? true
+             :dashboard {:active :friends
                          :items friends}
              :timeline timeline})))
 
