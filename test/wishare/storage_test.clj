@@ -31,6 +31,7 @@
                ))))
 
 
+
 ;; Adding multiple users and wishes should allow us to find the pets for a particular user
 (expect #{"Knife" "Kitty"}
         (with-redefs [conn (create-empty-im-memory-db)]
@@ -60,3 +61,31 @@
           (add-wish "jhon@coolmail.com" "paul@maol.com" "Pen" "A pen with spiderman!" :url "http://amazon.com/cool-spiderman-pen")
           (set (map :title (find-offered-wish-for-user "jhon@coolmail.com"))))))
 
+
+(expect #{"Steve" "Jhon" "Paul"}
+        (with-redefs [conn (create-empty-im-memory-db)]
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (add-user "Paul" "paul@maol.com")
+            (add-user "Steve" "steve@chachacha.org")
+            (add-user "Morgan" "some twitter id")
+
+            (add-friend "jhon@coolmail.com" "paul@maol.com")
+            (add-friend "steve@chachacha.org" "jhon@coolmail.com")
+
+            (->> (find-wish-user-id "jhon@coolmail.com")
+              find-friends
+              (map get-user-by-id)
+              (apply vector)
+              (map :real-name)
+              set))))
+
+(comment
+(expect "Jhon"
+        (with-redefs [conn (create-empty-im-memory-db)]
+          (do
+            (add-user "Jhon" "jhon@coolmail.com")
+            (->> (find-wish-user-id "jhon@coolmail.com")
+              get-user-by-id
+              :real-name))))
+ )
