@@ -1,0 +1,61 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Протокол взаимодействия клиент-сервер ;;
+;; Далее каждый top-level-элемент означает свою view
+
+;; Мой профайл: wishlist
+{:readonly? false
+ :header {:username "joe_the_hacker"
+          :fullname "Joe"
+          :avatar}
+ :dashboard {:mode :wishlist
+             :my-own? true
+             :items [{:title "iPhone6"
+                      :id 102
+                      :image "http://img.ur/2D3Fasdf6"}]}
+ :timeline [{:title "Wished the bike"
+             :time "5 min"}]}
+
+;; Мой профайл: друзья
+{:readonly? false
+ :header {:username "joe_the_hacker"
+          :fullname "Joe"
+          :avatar}
+ :dashboard {:mode :friends
+             :my-own? true
+             :items [{:username "jd"
+                      :fullname "John Dowe"
+                      :id 33
+                      :avatar "http://img.jpg"}]}
+ :timeline [{:title "Wished the bike"
+             :time "5 min"}]}
+
+;; Профайл readonly
+{:readonly? true
+ ;; всё как в "Мой профайл: вишлист"
+ }
+
+;; Профайл друга: вишлист
+{:readonly? false
+ :header {;;...
+          }
+ :dashboard {:mode :wishlist
+             :my-own? false
+             ;;...
+             }
+ :timeline [;;...
+            ]}
+
+;; Профайл друга: друзья
+{:read-only? false
+ :header {;;...
+          }
+ :dashboard {:mode :friends
+             :my-own? false
+             ;;...
+             }
+ :timeline [;;...
+            ]}
+
+;; TODO
+;; - формочки?
+;; - ещё чего?
