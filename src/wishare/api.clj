@@ -154,13 +154,18 @@
   (let [user (get-current-user request)]
     (storage/add-wish-comment wish user body)))
 
+;;[wish-id user-id status]
 
-(defn wish-status-submit
-  [request])
+(defn wish-status-submit [{{wish :wish
+                            status :status} :params :as request}]
+  (let [user (get-current-user request)]
+    (storage/set-wish-user-status wish user status)))
 
-(defn add-friend
-  [request])
+;;[iniciator acceptor]
 
+(defn add-friend [{{user-to :user-to} :params :as request}]
+  (let [user (get-current-user request)]
+    (storage/add-friend user user-to)))
 
 (defn remove-friend
   [request])
