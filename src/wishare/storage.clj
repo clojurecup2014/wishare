@@ -241,9 +241,10 @@
                           [?u :timeline/timestamp ?timestamp]])))))
 
 
-(defn find-user-own-timeline [{:keys [user-id limit] :or {limit 10}}]
+(defn find-user-own-timeline [{:keys [user limit] :or {limit 10}}]
   "Вернет статус подарка для юзера"
-  (let [timeline (d/q '[:find (sample limit ?t)
+  (let [user-id (find-wish-user-id user)
+        timeline (d/q '[:find (sample limit ?t)
                         :in $ ?user-id
                         :where
                         [?t :timeline/user ?user-id]]
