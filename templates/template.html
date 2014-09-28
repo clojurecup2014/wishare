@@ -22,7 +22,7 @@
   <body>
     <div class="container">
       <!-- JOE HEADER -->
-      <div class="page-header panel panel-default col-md-12 joe-header">
+      <div class="page-header panel panel-default col-md-12">
         <div class="panel-body">
           <img src="/img/noavatar.png" alt="avatar" class="img-thumbnail pull-left avatar image120x120"/>
           <h1 class="user">Joe Page <small>@joe</small></h1>
@@ -42,6 +42,7 @@
               <ul class="nav nav-pills nav-justified" role="tablist">
                 <li class="active"><a hfer="#">Whishlist</a></li>
                 <li><a hfer="#">Friends</a></li>
+                <li><a hfer="#">Friendship requests</a></li>
               </ul>
             </div>
             <ul class="wishlist list-group">
@@ -49,7 +50,7 @@
                 <button type="button" class="btn btn-default btn-block add-wish">Add Wish Item</button>
               </li>
 
-              <li class="list-group-item">
+              <li class="list-group-item wish-item">
                 <img src="/img/nophoto.png" alt="photo" class="img-thumbnail photo image32x32"/>
                 <a class="title" href="#">Lorem ipsum dolor.</a>
                 <div class="badges pull-right">
@@ -65,8 +66,8 @@
                   <span class="badge in-thought" rel="tooltip" data-toggle="tooltip" title="in thought">
                     <span class="glyphicon glyphicon-question-sign"></span>
                   </span>
-                  <button type="button" class="btn badge"><span class="glyphicon glyphicon-edit"></span>edit</button>
-                  <button type="button" class="btn badge"><span class="glyphicon glyphicon-edit"></span>remove</button>
+                  <button type="button" class="btn badge edit"><span class="glyphicon glyphicon-edit"></span>edit</button>
+                  <button type="button" class="btn badge remove"><span class="glyphicon glyphicon-edit"></span>remove</button>
                 </div>
               </li>
 
@@ -249,8 +250,8 @@
         </div>
 
         <!-- TIMELINE -->
-        <div class="col-md-4">
-          <div class="panel panel-default side-pane timeline">
+        <div class="col-md-4 side-pane">
+          <div class="panel panel-default timeline">
             <div class="panel-heading">
               <h2 class="panel-title">Timeline</h2>
             </div>
@@ -281,7 +282,7 @@
 
           </div>
 
-          <div class="panel panel-default side-pane item-stutuses">
+          <div class="panel panel-default item-statuses">
             <div class="panel-heading">
               <h2 class="panel-title">Statuses</h2>
             </div>
