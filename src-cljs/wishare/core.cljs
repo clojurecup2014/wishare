@@ -20,8 +20,7 @@
          {:handler (fn [res]
                      (do
                        (reset! suffix suff)
-                       (swap! state merge
-                              (cljs.reader/read-string res))))})))
+                       (reset! state (cljs.reader/read-string res))))})))
 
 ;; -----------------------------------------------------------------------------
 
@@ -120,5 +119,4 @@
                    (POST (str "/api/" route)
                          {:params data
                           :handler (fn [res]
-                                     (swap! state merge
-                                            (cljs.reader/read-string res)))}))))))
+                                     (reset! state (cljs.reader/read-string res)))}))))))
