@@ -30,12 +30,7 @@
                                      :login "moe"
                                      :id 101}]}
 
-         :timeline [{:title "Wish the PipBoy 3K"
-                     :timestamp "5 min"}
-                    {:title "Gifted a bramin"
-                     :timestamp "30 days"}
-                    {:title "Gifted a health kit"
-                     :timestamp "1 day"}]}))
+         :timeline '()}))
 
 (defn switch-dashboard-to!
   [board]
@@ -96,6 +91,15 @@
        ]
      (d/div
       {:className "container"}
+      ;; navbar
+      (d/nav {:className "navbar navbar-default"}
+             (d/div {:className "container-fluid"}
+                    (d/div {:className "navbar-header"}
+                           (d/a {:className "navbar-brand" :href "/"}
+                                (d/img {:src "/img/logo128x128.png"})))
+                    (d/div {:className "collapse navbar-collapse"}
+                           (d/ul {:className "nav navbar-nav"}
+                                 (d/li {} (d/h1 {} "WiShare"))))))
       ;; header
       (header-comp header mode)
       (d/div
@@ -126,4 +130,17 @@
 
 (defn ^:export renderProfile
   []
-  (use-the-force!))
+  (use-the-force!)
+  (let [cnt (atom 9)]
+    (.setInterval
+     js/window
+     (fn [& _]
+       (let [x (swap! cnt (fn [n] (if (> n -1) (dec n) 10)))]
+         (swap! state update-in [:timeline]
+                (fn [l]
+                  (if (neg? x)
+                    '()
+                    (->> l
+                         (cons {:title (if (pos? x) (str (dec x) "...") "BOOM!")})
+                         (take 5)))))))
+        500)))
